@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.How;
 import org.testng.annotations.BeforeTest;
 
 import static java.lang.System.setProperty;
@@ -18,10 +19,18 @@ public class Task1 {
         // 3. Assert Browser title
         Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
+
+
+        // 4. Perform login
+        // click on link to display login form
+        SeleniumSetMethods.click(How.CLASS_NAME, "dropdown-toggle");
+        // Filling login form
+        SeleniumSetMethods.enterText(How.ID, "Login", "epam");
+        SeleniumSetMethods.enterText(How.ID, "Password", "1234");
+        // Submit data
+        SeleniumSetMethods.click(How.CLASS_NAME, "uui-button dark-blue btn-login");
+
         WebDriverTools.driver.close();
-
-        // 4. 
-
     }
 
     // 2.Open test site by URL

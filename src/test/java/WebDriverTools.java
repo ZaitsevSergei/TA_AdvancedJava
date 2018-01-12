@@ -11,7 +11,6 @@ import java.lang.reflect.Method;
 public class WebDriverTools {
     public static WebDriver driver;
     /**
-     * @param driver WebDriver instance
      * @param attribute attribute name
      * @param attributeValue value of element
      * */
@@ -19,10 +18,11 @@ public class WebDriverTools {
     {
         try
         {
+            String methodName = String.valueOf(attribute).toLowerCase();
             // Find method from By class with reflection by the name that after will be used if FindElement method of web driver instance
-            Method findByMethod = By.class.getMethod(String.valueOf(attribute));
+            Method findByMethod = By.class.getMethod(methodName, String.class);
             // Find the control by the element value and put test string into control
-            return driver.findElement((By)findByMethod.invoke(null, new Object[]{(Object)attributeValue}));
+            return driver.findElement((By)findByMethod.invoke(null, attributeValue));
         }
         catch (NoSuchMethodException e) {
             e.printStackTrace();
