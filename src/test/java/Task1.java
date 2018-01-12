@@ -9,16 +9,18 @@ import static java.lang.System.setProperty;
 
 // Class for first task
 public class Task1 {
-    WebDriver driver;   // instance of web driver
+
 
     // 1. Create a new test in a new Java class, specify test name in accordance with checking functionality
     @Test
     public void TestJDIWebPageContent()
     {
         // 3. Assert Browser title
-        Assert.assertEquals(driver.getTitle(), "Index Page");
+        Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
-        driver.close();
+        WebDriverTools.driver.close();
+
+        // 4. 
 
     }
 
@@ -29,9 +31,9 @@ public class Task1 {
          // set web driver property
         setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
         // create web driver instance
-        driver = new ChromeDriver();
+        WebDriverTools.driver = new ChromeDriver();
         // navigate to URL
-        driver.navigate().to("https://jdi-framework.github.io/tests");
+        WebDriverTools.driver.navigate().to("https://jdi-framework.github.io/tests");
     }
 
 }

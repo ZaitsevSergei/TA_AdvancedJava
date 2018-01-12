@@ -6,10 +6,16 @@ import org.openqa.selenium.support.How;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-// Provides method to work with web driver
+/**
+ * Provides method to work with web driver*/
 public class WebDriverTools {
-
-    public static WebElement findElement(WebDriver driver, How attribute, String attributeValue)
+    public static WebDriver driver;
+    /**
+     * @param driver WebDriver instance
+     * @param attribute attribute name
+     * @param attributeValue value of element
+     * */
+    public static WebElement findElement(How attribute, String attributeValue)
     {
         try
         {
