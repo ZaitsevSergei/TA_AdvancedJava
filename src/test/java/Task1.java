@@ -40,6 +40,9 @@ public class Task1 {
         String userName = SeleniumGetMethods.getTagInnerHTML(How.XPATH, "//div[@class='profile-photo']//span");
         Assert.assertEquals(userName, "Piter Chailovskii");
 
+        // 6. Assert Browser title
+        Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
+
         WebDriverTools.driver.close();
     }
 
