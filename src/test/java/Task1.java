@@ -39,6 +39,9 @@ public class Task1 {
 
         // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
         assertTextsOnPage();
+
+        // 9. Assert that there are the main header and the text below it on the Home Page
+        assertHeaderAndMainTexts();
         WebDriverTools.driver.close();
     }
 
@@ -94,6 +97,22 @@ public class Task1 {
         }
 
     }
+
+    // 7. Assert that there are the main header and the text below it on the Home Page
+    private void assertHeaderAndMainTexts()
+    {
+        // get header text
+        String headerText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//h3");
+        String assertHeaderText = "EPAM FRAMEWORK WISHES…";
+        Assert.assertEquals(headerText, assertHeaderText);
+
+        // get main text
+        String mainText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//p");
+        String assertMainText = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
+
+        Assert.assertEquals(mainText, assertMainText);
+    }
+
     // 2.Open test site by URL
     @BeforeTest
     public void setUpWebDriver()
