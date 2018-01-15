@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;
@@ -21,8 +22,6 @@ public class Task1 {
         // 3. Assert Browser title
         Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
-
-
         // 4. Perform login
         // click on link to display login form
         //SeleniumSetMethods.click(How.XPATH, "//a[@href='#' AND @class='dropdown-toggle']");
@@ -32,6 +31,14 @@ public class Task1 {
         SeleniumSetMethods.enterText(How.ID, "Password", "1234");
         // Submit data
         SeleniumSetMethods.click(How.XPATH, "//button[@class='uui-button dark-blue btn-login']");
+
+        // 5. Assert User name in the left-top side of screen that user is loggined
+        // Assert User name is visible
+        boolean userNamevisibility = WebDriverTools.findElement(How.XPATH, "//div[@class='profile-photo']//span").isDisplayed();
+        Assert.assertEquals( userNamevisibility, true);
+        // get User name
+        String userName = SeleniumGetMethods.getTagInnerHTML(How.XPATH, "//div[@class='profile-photo']//span");
+        Assert.assertEquals(userName, "Piter Chailovskii");
 
         WebDriverTools.driver.close();
     }
