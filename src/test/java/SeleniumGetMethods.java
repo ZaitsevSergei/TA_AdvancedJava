@@ -2,6 +2,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Provides methods to get data from elements*/
 public class SeleniumGetMethods {
@@ -39,4 +42,24 @@ public class SeleniumGetMethods {
         return webElement.getText();
     }
 
+    /**
+     * Gets lists of texts of elements
+     * @param attribute attribute name
+     * @param attributeValue value of element
+     * */
+    public static List<String> getListOfElementsInnerText(How attribute, String attributeValue)
+    {
+        // get text elements
+        List<WebElement> webElements = WebDriverTools.findElements(attribute, attributeValue);
+        // create list of text strings
+        List<String> texts = new ArrayList<String>();
+
+        // initilize list
+        for (WebElement webElement:webElements)
+        {
+            texts.add(webElement.getText());
+        }
+
+        return texts;
+    }
 }

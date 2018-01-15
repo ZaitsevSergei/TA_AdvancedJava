@@ -36,6 +36,9 @@ public class Task1 {
 
         // 7. Assert that there are 4 images on the Home Page and they are displayed
         assertImagesOnPage();
+
+        // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
+        assertTextsOnPage();
         WebDriverTools.driver.close();
     }
 
@@ -70,6 +73,26 @@ public class Task1 {
         List<WebElement> images = WebDriverTools.findElements(How.XPATH, "//div[@class='benefit-icon']//span");
         int count = images.size();
         Assert.assertEquals(count, 4);
+    }
+
+    // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
+    private void assertTextsOnPage()
+    {
+        // get list of texts
+        List<String> textWebElements = SeleniumGetMethods.getListOfElementsInnerText(How.XPATH,
+                                                                                    "//span[@class='benefit-txt']");
+        String[] assertTexts = {"To include good practices\nand ideas from successful\nEPAM projec",
+                                "To be flexible and\ncustomizable",
+                                "To be multiplatform",
+                                "Already have good base\n(about 20 internal and\nsome external projects),\n" +
+                                "wish to get more…"
+                                };
+        // assert texts
+        for(int i = 0; i < assertTexts.length; i++)
+        {
+            Assert.assertEquals(textWebElements.get(i), assertTexts[i]);
+        }
+
     }
     // 2.Open test site by URL
     @BeforeTest
