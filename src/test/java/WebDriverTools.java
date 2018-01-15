@@ -18,11 +18,13 @@ public class WebDriverTools {
     {
         try
         {
-            String methodName = String.valueOf(attribute).toLowerCase();
+            String methodName = getByClassMethodName(attribute);
             // Find method from By class with reflection by the name that after will be used if FindElement method of web driver instance
             Method findByMethod = By.class.getMethod(methodName, String.class);
             // Find the control by the element value and put test string into control
+
             return driver.findElement((By)findByMethod.invoke(null, attributeValue));
+
         }
         catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -33,5 +35,26 @@ public class WebDriverTools {
         }
 
         return null;
+    }
+
+    private static String getByClassMethodName(How attribute)
+    {
+        // to lower case
+        String name = String.valueOf(attribute).toLowerCase();
+
+        // find '_' index
+        int index;
+        if((index = name.indexOf('_')) != -1)
+        {
+            // changing next character to uupper case
+            char charToChange = name.charAt(index + 1);
+            StringBuilder stringBuilder = new StringBuilder(name);
+            stringBuilder.setCharAt(index + 1, Character.toUpperCase(charToChange));
+            // delete '_' character
+            name = stringBuilder.deleteCharAt(index).toString();
+        }
+
+        return name;
+
     }
 }

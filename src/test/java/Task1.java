@@ -1,10 +1,10 @@
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;
+import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import static java.lang.System.setProperty;
 
@@ -16,6 +16,8 @@ public class Task1 {
     @Test
     public void TestJDIWebPageContent()
     {
+        // maximize window
+        WebDriverTools.driver.manage().window().maximize();
         // 3. Assert Browser title
         Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
@@ -23,18 +25,19 @@ public class Task1 {
 
         // 4. Perform login
         // click on link to display login form
-        SeleniumSetMethods.click(How.CLASS_NAME, "dropdown-toggle");
+        //SeleniumSetMethods.click(How.XPATH, "//a[@href='#' AND @class='dropdown-toggle']");
+        SeleniumSetMethods.click(How.XPATH, "//a[@href='#']");
         // Filling login form
         SeleniumSetMethods.enterText(How.ID, "Login", "epam");
         SeleniumSetMethods.enterText(How.ID, "Password", "1234");
         // Submit data
-        SeleniumSetMethods.click(How.CLASS_NAME, "uui-button dark-blue btn-login");
+        SeleniumSetMethods.click(How.XPATH, "//button[@class='uui-button dark-blue btn-login']");
 
         WebDriverTools.driver.close();
     }
 
     // 2.Open test site by URL
-    @Before
+    @BeforeTest
     public void setUpWebDriver()
     {
          // set web driver property
