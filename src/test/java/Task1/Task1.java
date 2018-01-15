@@ -1,6 +1,8 @@
-import org.junit.Before;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+package Task1;
+
+import Framework.SeleniumGetMethods;
+import Framework.SeleniumSetMethods;
+import Framework.WebDriverTools;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;

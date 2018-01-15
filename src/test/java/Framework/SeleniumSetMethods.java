@@ -1,8 +1,8 @@
+package Framework;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-/**
- * Provides methods to set data into web elements*/
 public class SeleniumSetMethods {
 
     /**
@@ -27,3 +27,4 @@ public class SeleniumSetMethods {
         webElement.click();
     }
 }
+
