@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static java.lang.System.setProperty;
+import static org.testng.Assert.assertEquals;
 
 // Class for first task
 public class Task1 {
@@ -20,12 +21,12 @@ public class Task1 {
 
     // 1. Create a new test in a new Java class, specify test name in accordance with checking functionality
     @Test
-    public void TestJDIWebPageContent()
+    public void TestLoginPage()
     {
         // maximize window
         WebDriverTools.driver.manage().window().maximize();
         // 3. Assert Browser title
-        Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
+        assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
         // 4. Perform login
         performLogin();
@@ -34,7 +35,7 @@ public class Task1 {
         assertUserName();
 
         // 6. Assert Browser title
-        Assert.assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
+        assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
         // 7. Assert that there are 4 images on the Home Page and they are displayed
         assertImagesOnPage();
@@ -65,10 +66,10 @@ public class Task1 {
     {
         // Assert User name is visible
         boolean userNamevisibility = WebDriverTools.findElement(How.XPATH, "//div[@class='profile-photo']//span").isDisplayed();
-        Assert.assertEquals( userNamevisibility, true);
+        assertEquals( userNamevisibility, true);
         // get User name
         String userName = SeleniumGetMethods.getTagInnerHTML(How.XPATH, "//div[@class='profile-photo']//span");
-        Assert.assertEquals(userName, "Piter Chailovskii");
+        assertEquals(userName, "Piter Chailovskii");
     }
 
     // 7. Assert that there are 4 images on the Home Page and they are displayed
@@ -77,7 +78,7 @@ public class Task1 {
         // get list of images
         List<WebElement> images = WebDriverTools.findElements(How.XPATH, "//div[@class='benefit-icon']//span");
         int count = images.size();
-        Assert.assertEquals(count, 4);
+        assertEquals(count, 4);
     }
 
     // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
@@ -95,7 +96,7 @@ public class Task1 {
         // assert texts
         for(int i = 0; i < assertTexts.length; i++)
         {
-            Assert.assertEquals(textWebElements.get(i), assertTexts[i]);
+            assertEquals(textWebElements.get(i), assertTexts[i]);
         }
 
     }
@@ -106,13 +107,13 @@ public class Task1 {
         // get header text
         String headerText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//h3");
         String assertHeaderText = "EPAM FRAMEWORK WISHES…";
-        Assert.assertEquals(headerText, assertHeaderText);
+        assertEquals(headerText, assertHeaderText);
 
         // get main text
         String mainText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//p");
         String assertMainText = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
 
-        Assert.assertEquals(mainText, assertMainText);
+        assertEquals(mainText, assertMainText);
     }
 
     // 2.Open test site by URL
