@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import static org.testng.Assert.*;
 public class Exercise1 {
 
     List<String> texts;
-    @DataProvider
+    @DataProvider(parallel = true)
     private Object[][] textsDP()
     {
         return new Object[][]
@@ -43,9 +44,10 @@ public class Exercise1 {
         texts = SeleniumGetMethods.getListOfElementsInnerText(How.XPATH, "//span[@class='benefit-txt']");
     }
 
-    @Test(dataProvider = "textsDP")
+    @Test(dataProvider = "textsDP", threadPoolSize = 4)
     public void TestIndexPageTexts(int index, String assertString)
     {
+        System.out.println(index);
         assertEquals(texts.get(index), assertString);
     }
 
