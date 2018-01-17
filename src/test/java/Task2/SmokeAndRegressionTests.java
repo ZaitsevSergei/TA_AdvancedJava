@@ -18,7 +18,7 @@ public class SmokeAndRegressionTests {
     @BeforeMethod(alwaysRun = true)
     public void setUpWebDriver() {
         // set web driver property
-        setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
+        setProperty("webdriver.chrome.driver", WebDriverTools.driverPath);
         // create web driver instance
         WebDriverTools.driver = new ChromeDriver();
         // navigate to URL

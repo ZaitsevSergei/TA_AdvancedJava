@@ -1,5 +1,6 @@
 package Task2;
 
+import Framework.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,7 +20,7 @@ public class SmokeTests
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
+        setProperty("webdriver.chrome.driver", WebDriverTools.driverPath);
         driver = new ChromeDriver();
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class WebDriverTools {
     public static WebDriver driver;
-    public static String driverPath = "C:/Selenium/chromedriver.exe";
+    public static String driverPath = "windows-drivers/chromedriver.exe";
 
     /**
      * @param attribute      attribute name
