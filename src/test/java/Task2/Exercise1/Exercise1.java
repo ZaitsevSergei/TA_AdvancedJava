@@ -31,7 +31,7 @@ public class Exercise1 {
 
     @BeforeTest
     public void setUp() {
-        setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
+        setProperty("webdriver.chrome.driver", WebDriverTools.driverPath);
         WebDriverTools.driver = new ChromeDriver();
         WebDriverTools.driver.manage().window().maximize();
         WebDriverTools.driver.navigate().to("https://jdi-framework.github.io/tests/index.htm");
