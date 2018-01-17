@@ -17,6 +17,8 @@ public class WebDriverTools {
     public static String driverPath = "windows-drivers/chromedriver.exe";
 
     /**
+     * find first web element matches attribute
+     *
      * @param attribute      attribute name
      * @param attributeValue value of element
      */
@@ -40,6 +42,12 @@ public class WebDriverTools {
         return null;
     }
 
+    /**
+     * find web elements with matching attributes
+     *
+     * @param attribute      attribute name
+     * @param attributeValue value of element
+     */
     public static List<WebElement> findElements(How attribute, String attributeValue) {
         try {
             String methodName = getByClassMethodName(attribute);
@@ -60,10 +68,13 @@ public class WebDriverTools {
         return null;
     }
 
+    // gets method name of By class using How enum
     private static String getByClassMethodName(How attribute) {
         // to lower case
         String name = String.valueOf(attribute).toLowerCase();
-
+        if (name == "css") {
+            return "cssSelector";
+        }
         // find '_' index
         int index;
         if ((index = name.indexOf('_')) != -1) {
