@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SmokeAndRegressionTests {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpWebDriver()
     {
         // set web driver property
@@ -27,7 +27,7 @@ public class SmokeAndRegressionTests {
         WebDriverTools.driver.manage().window().maximize();
     }
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"smoke"})
     public void textsOnPageTest()
     {
         // get list of texts
@@ -46,7 +46,7 @@ public class SmokeAndRegressionTests {
         }
     }
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression"})
     public void headerAndMainTextsTest()
     {
         // get header text

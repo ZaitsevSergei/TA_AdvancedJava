@@ -16,7 +16,7 @@ import static org.testng.Assert.assertEquals;
 
 public class RegressionTests {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpWebDriver()
     {
         // set web driver property
