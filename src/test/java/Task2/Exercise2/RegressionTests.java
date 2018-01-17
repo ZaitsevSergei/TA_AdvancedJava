@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -17,8 +16,7 @@ import static org.testng.Assert.assertEquals;
 public class RegressionTests {
 
     @BeforeMethod(alwaysRun = true)
-    public void setUpWebDriver()
-    {
+    public void setUpWebDriver() {
         // set web driver property
         setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
         // create web driver instance
@@ -37,8 +35,7 @@ public class RegressionTests {
     }
 
     @Test(groups = {"regression"})
-    public void imagesTest()
-    {
+    public void imagesTest() {
         // get list of images
         List<WebElement> images = WebDriverTools.findElements(How.XPATH, "//div[@class='benefit-icon']//span");
         int count = images.size();

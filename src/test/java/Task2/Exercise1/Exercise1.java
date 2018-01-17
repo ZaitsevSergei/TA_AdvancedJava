@@ -2,27 +2,23 @@ package Task2.Exercise1;
 
 import Framework.SeleniumGetMethods;
 import Framework.WebDriverTools;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.Console;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.setProperty;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class Exercise1 {
 
     List<String> texts;
+
     @DataProvider(parallel = true)
-    private Object[][] textsDP()
-    {
+    private Object[][] textsDP() {
         return new Object[][]
                 {
                         {0, "To include good practices\nand ideas from successful\nEPAM projec"},
@@ -34,8 +30,7 @@ public class Exercise1 {
     }
 
     @BeforeTest
-    public void setUp()
-    {
+    public void setUp() {
         setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
         WebDriverTools.driver = new ChromeDriver();
         WebDriverTools.driver.manage().window().maximize();
@@ -45,8 +40,7 @@ public class Exercise1 {
     }
 
     @Test(dataProvider = "textsDP", threadPoolSize = 4)
-    public void TestIndexPageTexts(int index, String assertString)
-    {
+    public void TestIndexPageTexts(int index, String assertString) {
         System.out.println(index);
         assertEquals(texts.get(index), assertString);
     }

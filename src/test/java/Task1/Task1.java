@@ -6,7 +6,6 @@ import Framework.WebDriverTools;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -14,6 +13,7 @@ import java.util.List;
 
 import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 // Class for first task
 public class Task1 {
@@ -21,8 +21,7 @@ public class Task1 {
 
     // 1. Create a new test in a new Java class, specify test name in accordance with checking functionality
     @Test
-    public void TestLoginPage()
-    {
+    public void TestLoginPage() {
         // maximize window
         WebDriverTools.driver.manage().window().maximize();
         // 3. Assert Browser title
@@ -49,8 +48,7 @@ public class Task1 {
     }
 
     // 4. Perform login
-    private void performLogin()
-    {
+    private void performLogin() {
         // click on link to display login form
         //SeleniumSetMethods.click(How.XPATH, "//a[@href='#' AND @class='dropdown-toggle']");
         SeleniumSetMethods.click(How.XPATH, "//a[@href='#']");
@@ -62,19 +60,17 @@ public class Task1 {
     }
 
     // 5. Assert User name in the left-top side of screen that user is logged
-    private void assertUserName()
-    {
+    private void assertUserName() {
         // Assert User name is visible
-        boolean userNamevisibility = WebDriverTools.findElement(How.XPATH, "//div[@class='profile-photo']//span").isDisplayed();
-        assertEquals( userNamevisibility, true);
+        boolean userNameVisibility = WebDriverTools.findElement(How.XPATH, "//div[@class='profile-photo']//span").isDisplayed();
+        assertTrue(userNameVisibility);
         // get User name
         String userName = SeleniumGetMethods.getTagInnerHTML(How.XPATH, "//div[@class='profile-photo']//span");
         assertEquals(userName, "Piter Chailovskii");
     }
 
     // 7. Assert that there are 4 images on the Home Page and they are displayed
-    private void assertImagesOnPage()
-    {
+    private void assertImagesOnPage() {
         // get list of images
         List<WebElement> images = WebDriverTools.findElements(How.XPATH, "//div[@class='benefit-icon']//span");
         int count = images.size();
@@ -82,28 +78,25 @@ public class Task1 {
     }
 
     // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
-    private void assertTextsOnPage()
-    {
+    private void assertTextsOnPage() {
         // get list of texts
         List<String> textWebElements = SeleniumGetMethods.getListOfElementsInnerText(How.XPATH,
-                                                                                    "//span[@class='benefit-txt']");
+                "//span[@class='benefit-txt']");
         String[] assertTexts = {"To include good practices\nand ideas from successful\nEPAM projec",
-                                "To be flexible and\ncustomizable",
-                                "To be multiplatform",
-                                "Already have good base\n(about 20 internal and\nsome external projects),\n" +
-                                "wish to get more…"
-                                };
+                "To be flexible and\ncustomizable",
+                "To be multiplatform",
+                "Already have good base\n(about 20 internal and\nsome external projects),\n" +
+                        "wish to get more…"
+        };
         // assert texts
-        for(int i = 0; i < assertTexts.length; i++)
-        {
+        for (int i = 0; i < assertTexts.length; i++) {
             assertEquals(textWebElements.get(i), assertTexts[i]);
         }
 
     }
 
     // 7. Assert that there are the main header and the text below it on the Home Page
-    private void assertHeaderAndMainTexts()
-    {
+    private void assertHeaderAndMainTexts() {
         // get header text
         String headerText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//h3");
         String assertHeaderText = "EPAM FRAMEWORK WISHES…";
@@ -118,9 +111,8 @@ public class Task1 {
 
     // 2.Open test site by URL
     @BeforeTest
-    public void setUpWebDriver()
-    {
-         // set web driver property
+    public void setUpWebDriver() {
+        // set web driver property
         setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
         // create web driver instance
         WebDriverTools.driver = new ChromeDriver();

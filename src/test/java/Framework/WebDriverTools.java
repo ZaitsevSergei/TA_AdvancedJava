@@ -10,26 +10,26 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Provides method to work with web driver*/
+ * Provides method to work with web driver
+ */
 public class WebDriverTools {
     public static WebDriver driver;
+    public static String driverPath = "C:/Selenium/chromedriver.exe";
+
     /**
-     * @param attribute attribute name
+     * @param attribute      attribute name
      * @param attributeValue value of element
-     * */
-    public static WebElement findElement(How attribute, String attributeValue)
-    {
-        try
-        {
+     */
+    public static WebElement findElement(How attribute, String attributeValue) {
+        try {
             String methodName = getByClassMethodName(attribute);
             // Find method from By class with reflection by the name that after will be used if FindElement method of web driver instance
             Method findByMethod = By.class.getMethod(methodName, String.class);
             // Find the control by the element value and put test string into control
 
-            return driver.findElement((By)findByMethod.invoke(null, attributeValue));
+            return driver.findElement((By) findByMethod.invoke(null, attributeValue));
 
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -40,19 +40,16 @@ public class WebDriverTools {
         return null;
     }
 
-    public static List<WebElement> findElements(How attribute, String attributeValue)
-    {
-        try
-        {
+    public static List<WebElement> findElements(How attribute, String attributeValue) {
+        try {
             String methodName = getByClassMethodName(attribute);
             // Find method from By class with reflection by the name that after will be used if FindElement method of web driver instance
             Method findByMethod = By.class.getMethod(methodName, String.class);
             // Find the control by the element value and put test string into control
 
-            return driver.findElements((By)findByMethod.invoke(null, attributeValue));
+            return driver.findElements((By) findByMethod.invoke(null, attributeValue));
 
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -63,15 +60,13 @@ public class WebDriverTools {
         return null;
     }
 
-    private static String getByClassMethodName(How attribute)
-    {
+    private static String getByClassMethodName(How attribute) {
         // to lower case
         String name = String.valueOf(attribute).toLowerCase();
 
         // find '_' index
         int index;
-        if((index = name.indexOf('_')) != -1)
-        {
+        if ((index = name.indexOf('_')) != -1) {
             // changing next character to uupper case
             char charToChange = name.charAt(index + 1);
             StringBuilder stringBuilder = new StringBuilder(name);

@@ -16,8 +16,7 @@ import static org.testng.Assert.assertEquals;
 public class SmokeAndRegressionTests {
 
     @BeforeMethod(alwaysRun = true)
-    public void setUpWebDriver()
-    {
+    public void setUpWebDriver() {
         // set web driver property
         setProperty("webdriver.chrome.driver", "C:/Selenium/chromedriver.exe");
         // create web driver instance
@@ -28,8 +27,7 @@ public class SmokeAndRegressionTests {
     }
 
     @Test(groups = {"smoke"})
-    public void textsOnPageTest()
-    {
+    public void textsOnPageTest() {
         // get list of texts
         List<String> textWebElements = SeleniumGetMethods.getListOfElementsInnerText(How.XPATH,
                 "//span[@class='benefit-txt']");
@@ -40,15 +38,13 @@ public class SmokeAndRegressionTests {
                         "wish to get more…"
         };
         // assert texts
-        for(int i = 0; i < assertTexts.length; i++)
-        {
+        for (int i = 0; i < assertTexts.length; i++) {
             assertEquals(textWebElements.get(i), assertTexts[i]);
         }
     }
 
     @Test(groups = {"regression"})
-    public void headerAndMainTextsTest()
-    {
+    public void headerAndMainTextsTest() {
         // get header text
         String headerText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//h3");
         String assertHeaderText = "EPAM FRAMEWORK WISHES…";
