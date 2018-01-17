@@ -1,4 +1,4 @@
-package Task2.Exercise2;
+package Task2;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
