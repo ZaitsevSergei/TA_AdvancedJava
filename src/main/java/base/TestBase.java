@@ -10,7 +10,7 @@ import static java.lang.System.setProperty;
 public abstract class TestBase {
 
     public static WebDriver driver;
-
+    public static String driverPath = ;
     @BeforeSuite
     public void setUp() {
         setProperty("webdriver.chrome.driver", framework.WebDriverTools.driverPath);
