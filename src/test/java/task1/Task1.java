@@ -1,8 +1,8 @@
-package Task1;
+package task1;
 
-import Framework.SeleniumGetMethods;
-import Framework.SeleniumSetMethods;
-import Framework.WebDriverTools;
+import framework.SeleniumGetMethods;
+import framework.SeleniumSetMethods;
+import framework.WebDriverTools;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;

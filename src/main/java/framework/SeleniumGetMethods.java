@@ -1,4 +1,4 @@
-package Framework;
+package framework;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
