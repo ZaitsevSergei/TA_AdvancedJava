@@ -1,7 +1,7 @@
-package Task2;
+package task2.exercise2;
 
-import Framework.SeleniumGetMethods;
-import Framework.WebDriverTools;
+import framework.SeleniumGetMethods;
+import framework.WebDriverTools;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.How;
 import org.testng.annotations.AfterMethod;

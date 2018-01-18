@@ -1,6 +1,6 @@
-package Task2.Exercise3;
+package task2.exercise3;
 
-import Framework.WebDriverTools;
+import framework.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
