@@ -33,4 +33,4 @@ packages/
 .idea/
 TA_AdvancedJava.iml
 #target
-target/
+/target/
