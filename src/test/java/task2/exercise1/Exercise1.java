@@ -14,7 +14,7 @@ import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 
 public class Exercise1 {
-
+    // simple comment to try merge into master
     List<String> texts;
 
     @DataProvider(parallel = true)
