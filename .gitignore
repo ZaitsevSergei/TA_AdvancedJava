@@ -32,3 +32,5 @@ packages/
 #Idea folders and files
 .idea/
 TA_AdvancedJava.iml
+#target
+target/
