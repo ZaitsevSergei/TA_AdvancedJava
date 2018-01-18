@@ -31,19 +31,19 @@ public class Task1 {
         performLogin();
 
         // 5. Assert User name in the left-top side of screen that user is loggined
-        assertUserName();
+        checkUserName();
 
         // 6. Assert Browser title
         assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
 
         // 7. Assert that there are 4 images on the Home Page and they are displayed
-        assertImagesOnPage();
+        checkImagesOnPage();
 
         // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
-        assertTextsOnPage();
+        checkTextsOnPage();
 
         // 9. Assert that there are the main header and the text below it on the Home Page
-        assertHeaderAndMainTexts();
+        checkHeaderAndMainTexts();
         WebDriverTools.driver.close();
     }
 
@@ -60,7 +60,7 @@ public class Task1 {
     }
 
     // 5. Assert User name in the left-top side of screen that user is logged
-    private void assertUserName() {
+    private void checkUserName() {
         // Assert User name is visible
         boolean userNameVisibility = WebDriverTools.findElement(How.XPATH, "//div[@class='profile-photo']//span").isDisplayed();
         assertTrue(userNameVisibility);
@@ -70,7 +70,7 @@ public class Task1 {
     }
 
     // 7. Assert that there are 4 images on the Home Page and they are displayed
-    private void assertImagesOnPage() {
+    private void checkImagesOnPage() {
         // get list of images
         List<WebElement> images = WebDriverTools.findElements(How.XPATH, "//div[@class='benefit-icon']//span");
         int count = images.size();
@@ -78,7 +78,7 @@ public class Task1 {
     }
 
     // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
-    private void assertTextsOnPage() {
+    private void checkTextsOnPage() {
         // get list of texts
         List<String> textWebElements = SeleniumGetMethods.getListOfElementsInnerText(How.XPATH,
                 "//span[@class='benefit-txt']");
@@ -96,7 +96,7 @@ public class Task1 {
     }
 
     // 7. Assert that there are the main header and the text below it on the Home Page
-    private void assertHeaderAndMainTexts() {
+    private void checkHeaderAndMainTexts() {
         // get header text
         String headerText = SeleniumGetMethods.getTagInnerText(How.XPATH, "//div[@class='main-content']//h3");
         String assertHeaderText = "EPAM FRAMEWORK WISHES…";
