@@ -1,9 +1,13 @@
 package task1;
 
+import framework.SeleniumGetMethods;
+import framework.SeleniumSetMethods;
+import framework.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.How;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
