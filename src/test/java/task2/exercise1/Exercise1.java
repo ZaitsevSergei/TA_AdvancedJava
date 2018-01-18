@@ -1,21 +1,19 @@
 package task2.exercise1;
 
-import framework.SeleniumGetMethods;
-import framework.WebDriverTools;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.How;
+import base.TestBase;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 
-public class Exercise1 {
+public class Exercise1 extends TestBase {
 
-    List<String> texts;
+    List<WebElement> texts;
 
     @DataProvider(parallel = true)
     private Object[][] textsDP() {
@@ -31,18 +29,15 @@ public class Exercise1 {
 
     @BeforeTest
     public void setUp() {
-        setProperty("webdriver.chrome.driver", WebDriverTools.driverPath);
-        WebDriverTools.driver = new ChromeDriver();
-        WebDriverTools.driver.manage().window().maximize();
-        WebDriverTools.driver.navigate().to("https://jdi-framework.github.io/tests/index.htm");
-
-        texts = SeleniumGetMethods.getListOfElementsInnerText(How.XPATH, "//span[@class='benefit-txt']");
+        driver.manage().window().maximize();
+        driver.navigate().to("https://jdi-framework.github.io/tests/index.htm");
+        texts = driver.findElements(By.xpath("//span[@class='benefit-txt']"));
     }
 
     @Test(dataProvider = "textsDP", threadPoolSize = 4)
     public void TestIndexPageTexts(int index, String assertString) {
         System.out.println(index);
-        assertEquals(texts.get(index), assertString);
+        assertEquals(texts.get(index).getText(), assertString);
     }
 
 
