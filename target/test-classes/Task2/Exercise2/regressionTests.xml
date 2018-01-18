@@ -8,7 +8,7 @@
             </run>
         </groups>
         <packages>
-            <package name="Task2.Exercise2"/>
+            <package name="task2.exercise2"/>
         </packages>
     </test>
 </suite>

@@ -1,9 +1,9 @@
 package task2.exercise2;
 
-import framework.WebDriverTools;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.How;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,36 +14,36 @@ import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 
 public class RegressionTests {
+    WebDriver driver;
+    String driverPath = "windows-drivers/chromedriver.exe";
 
     @BeforeMethod(alwaysRun = true)
     public void setUpWebDriver() {
         // set web driver property
-        setProperty("webdriver.chrome.driver", WebDriverTools.driverPath);
+        setProperty("webdriver.chrome.driver", driverPath);
         // create web driver instance
-        WebDriverTools.driver = new ChromeDriver();
+        driver = new ChromeDriver();
         // navigate to URL
-        WebDriverTools.driver.navigate().to("https://jdi-framework.github.io/tests");
-        WebDriverTools.driver.manage().window().maximize();
+        driver.navigate().to("https://jdi-framework.github.io/tests");
+        driver.manage().window().maximize();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        driver.close();
     }
 
     @Test(groups = {"regression"})
     public void indexPageTitleTest() {
-        // maximize window
-        WebDriverTools.driver.manage().window().maximize();
         // 3. Assert Browser title
-        assertEquals(WebDriverTools.driver.getTitle(), "Index Page");
+        assertEquals(driver.getTitle(), "Index Page");
     }
 
     @Test(groups = {"regression"})
     public void imagesTest() {
         // get list of images
-        List<WebElement> images = WebDriverTools.findElements(How.XPATH, "//div[@class='benefit-icon']//span");
+        List<WebElement> images = driver.findElements(By.xpath("//div[@class='benefit-icon']//span"));
         int count = images.size();
         assertEquals(count, 4);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
-        WebDriverTools.driver.close();
     }
 }
