@@ -1,6 +1,6 @@
-package enums;
+package enums.indexPageEnums;
 
-public enum  MainTextEnum {
+public enum BenefitsTextsEnum {
     TEXT1("To include good practices\nand ideas from successful\nEPAM projec"),
     TEXT2("To be flexible and\ncustomizable"),
     TEXT3("To be multiplatform"),
@@ -8,7 +8,7 @@ public enum  MainTextEnum {
 
     private final String text;
 
-    MainTextEnum(String text) {
+    BenefitsTextsEnum(String text) {
         this.text = text;
 
     }
