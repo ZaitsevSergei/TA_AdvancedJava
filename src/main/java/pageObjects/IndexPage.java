@@ -1,5 +1,7 @@
 package pageObjects;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +11,7 @@ import org.testng.Assert;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -17,44 +20,47 @@ import static org.testng.Assert.assertTrue;
  */
 public class IndexPage {
 
-    private final WebDriver driver;
-
     @FindBy(css = ".uui-profile-menu .dropdown-toggle")
-    private WebElement loginFormButton;
+    private SelenideElement loginFormButton;
 
     @FindBy(css = "#Login")
-    private WebElement loginInput;
+    private SelenideElement loginInput;
 
     @FindBy(css = "#Password")
-    private WebElement passordInput;
+    private SelenideElement passordInput;
 
     @FindBy(css = ".form-horizontal [type='submit']")
-    private WebElement submitButton;
+    private SelenideElement submitButton;
+
+    @FindBy(css = ".profile-photo span")
+    private SelenideElement userName;
 
     @FindBy(css = ".icons-benefit")
-    private List<WebElement> benefitsIcons;
+    private List<SelenideElement> benefitsIcons;
 
     @FindBy(css = ".benefit-txt")
-    private List<WebElement> benefitsTexts;
+    private List<SelenideElement> benefitsTexts;
 
     @FindBy(css = ".main-title")
-    private WebElement header;
+    private SelenideElement header;
 
     @FindBy(css = ".main-txt")
-    private WebElement mainText;
+    private SelenideElement mainText;
 
-    public IndexPage(WebDriver driver) {
-        this.driver = driver;
-    }
+    @FindBy(css = ".sub-menu a[href='page1.htm']")
+    private SelenideElement serviceSideMenuLink;
 
-    public void open()
-    {
+    @FindBy(css = ".dropdown a[href='page1.htm']")
+    private SelenideElement serviceHeaderLink;
+
+
+    public void open(WebDriver driver) {
         driver.navigate().to("https://jdi-framework.github.io/tests");
         driver.manage().window().maximize();
     }
 
-    public void checkTitle(String expectedTitle) {
-        Assert.assertEquals(expectedTitle, driver.getTitle());
+    public void checkTitle(WebDriver driver, String expectedTitle) {
+        Assert.assertEquals(driver.getTitle(), expectedTitle);
     }
 
     public void login(String name, String password) {
@@ -67,31 +73,26 @@ public class IndexPage {
 
     public void checkUserName(String expectedUserName) {
         // Assert User name is visible
-        boolean userNameVisibility = driver.findElement(By.cssSelector(".profile-photo span")).isDisplayed();
-        assertTrue(userNameVisibility);
-        // get User name
-        String userName = driver.findElement(By.cssSelector(".profile-photo span")).getAttribute("innerHTML");
-        assertEquals(expectedUserName, userName);
+        userName.shouldHave(text(expectedUserName));
     }
 
-    public void checkBenefitsIconsCount(int expectedCount)
-    {
-        assertEquals(expectedCount, benefitsIcons.size());
+    public void checkBenefitsIconsCount(int expectedCount) {
+        assertEquals(benefitsIcons.size(), expectedCount);
     }
 
-    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts){
+    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
-            assertEquals(expectedTexts[i].toString(), benefitsTexts.get(i).getText());
+            benefitsTexts.get(i).shouldHave(text(expectedTexts[i].toString()));
         }
     }
 
-    public void checkHeader(String expectedHeaderText)
-    {
-        assertEquals(expectedHeaderText, header.getText());
+    public void checkHeader(String expectedHeaderText) {
+        header.shouldHave(text(expectedHeaderText));
+
     }
 
-    public void checkMainText(String expectedMainText)
-    {
-        assertEquals(expectedMainText, mainText.getText());
+    public void checkMainText(String expectedMainText) {
+        mainText.shouldHave(text(expectedMainText));
     }
+
 }
