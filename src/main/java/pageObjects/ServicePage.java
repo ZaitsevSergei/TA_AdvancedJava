@@ -1,6 +1,7 @@
 package pageObjects;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -12,10 +13,10 @@ import static com.codeborne.selenide.Condition.*;
 public class ServicePage {
 
     @FindBy(css = ".label-checkbox")
-    private List<SelenideElement> checkBoxes;
+    private ElementsCollection checkBoxes;
 
     @FindBy(css = ".label-radio")
-    private List<SelenideElement> radioButtons;
+    private ElementsCollection radioButtons;
 
     @FindBy(css = ".colors .uui-form-element")
     private SelenideElement dropdownElement;
@@ -27,7 +28,7 @@ public class ServicePage {
     private SelenideElement button;
 
     @FindBy(css = ".panel-body-list.logs li")
-    private List<SelenideElement> logs;
+    private ElementsCollection logs;
 
     public void checkInterface()
     {

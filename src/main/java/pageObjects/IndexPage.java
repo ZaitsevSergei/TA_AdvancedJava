@@ -1,5 +1,6 @@
 package pageObjects;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.indexPageEnums.BenefitsTextsEnum;
@@ -39,7 +40,7 @@ public class IndexPage {
     private List<SelenideElement> benefitsIcons;
 
     @FindBy(css = ".benefit-txt")
-    private List<SelenideElement> benefitsTexts;
+    private ElementsCollection benefitsTexts;
 
     @FindBy(css = ".main-title")
     private SelenideElement header;
@@ -54,10 +55,10 @@ public class IndexPage {
     private SelenideElement serviceHeaderLink;
 
     @FindBy(css = ".sub a")
-    private List<SelenideElement> serviceSideMenuElements;
+    private ElementsCollection serviceSideMenuElements;
 
     @FindBy(css = ".dropdown-menu a")
-    private List<SelenideElement> serviceHeaderElements;
+    private ElementsCollection serviceHeaderElements;
 
     @FindBy(css = ".dropdown-menu a[href='page8.htm']")
     private SelenideElement differentElementsOption;
