@@ -1,8 +1,10 @@
 package pageObjects;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.indexPageEnums.BenefitsTextsEnum;
+import enums.indexPageEnums.ServiceContentEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,6 +55,12 @@ public class IndexPage {
     @FindBy(css = ".dropdown a[href='page1.htm']")
     private SelenideElement serviceHeaderLink;
 
+    @FindBy(css = ".sub a")
+    private List<SelenideElement> serviceSideMenuElements;
+
+    @FindBy(css = ".dropdown-menu a")
+    private List<SelenideElement> serviceHeaderElements;
+
 
     public void open(WebDriver driver) {
         driver.navigate().to("https://jdi-framework.github.io/tests");
@@ -94,5 +102,26 @@ public class IndexPage {
     public void checkMainText(String expectedMainText) {
         mainText.shouldHave(text(expectedMainText));
     }
+
+    public void checkHeaderServiceContent(ServiceContentEnum[] expectedServiceContent) {
+        // click on link
+        serviceHeaderLink.click();
+
+        // check content
+        for (int i = 0; i < serviceHeaderElements.size(); i++) {
+            serviceHeaderElements.get(i).shouldHave(text(expectedServiceContent[i].toString()));
+        }
+    }
+
+    public void checkSideMenuServiceContent(ServiceContentEnum[] expectedServiceContent) {
+        // click on link
+        serviceSideMenuLink.click();
+
+        // check content
+        for (int i = 0; i < serviceSideMenuElements.size(); i++) {
+            serviceSideMenuElements.get(i).shouldHave(text(expectedServiceContent[i].toString()));
+        }
+    }
+}
 
 }

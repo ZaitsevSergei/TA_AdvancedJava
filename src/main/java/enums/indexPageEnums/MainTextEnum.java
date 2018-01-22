@@ -1,7 +1,10 @@
 package enums.indexPageEnums;
 
 public enum MainTextEnum {
-    TEXT1("LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.");
+    TEXT1("To include good practices\nand ideas from successful\nEPAM projec"),
+    TEXT2("To be flexible and\ncustomizable"),
+    TEXT3("To be multiplatform"),
+    TEXT4("Already have good base\n(about 20 internal and\nsome external projects),\nwish to get more…");
 
     private final String text;
 
