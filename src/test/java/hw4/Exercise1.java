@@ -1,17 +1,15 @@
 package hw4;
 
 import base.BaseSelenide;
-import com.codeborne.selenide.Selenide;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
 import enums.indexPageEnums.ServiceContentEnum;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
+import pageObjects.ServicePage;
 import pageObjects.IndexPage;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class Exercise1 extends BaseSelenide{
 
@@ -22,6 +20,23 @@ public class Exercise1 extends BaseSelenide{
         // 2. Open test site by URL
         IndexPage page = open("https://jdi-framework.github.io/tests", IndexPage.class);
 
+        // test index page
+        testIndexPage(page);
+
+
+        // 8. Open through the header menu Service -> Different Elements Page
+        ServicePage servicePage = page.navigateToDifferentElementsPage();
+
+        // 9. Check interface on Service page, it contains all needed elements.
+        servicePage.checkInterface();
+
+        // 10. Select and assert checkboxes
+
+
+
+    }
+
+    private void testIndexPage(IndexPage page) {
         // 3. Perform login
         page.login("epam","1234");
 

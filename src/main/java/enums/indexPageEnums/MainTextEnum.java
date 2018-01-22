@@ -14,4 +14,4 @@ public enum MainTextEnum {
     public String toString() {
         return text;
     }
-    }
+}

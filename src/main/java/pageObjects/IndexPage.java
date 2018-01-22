@@ -1,14 +1,9 @@
 package pageObjects;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.ServiceContentEnum;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.testng.Assert;
@@ -63,6 +58,9 @@ public class IndexPage {
 
     @FindBy(css = ".dropdown-menu a")
     private List<SelenideElement> serviceHeaderElements;
+
+    @FindBy(css = ".dropdown-menu a[href='page8.htm']")
+    private SelenideElement differentElementsOption;
 
     public void open() {
         Selenide.open("https://jdi-framework.github.io/tests");
@@ -123,5 +121,15 @@ public class IndexPage {
         for (int i = 0; i < serviceSideMenuElements.size(); i++) {
             serviceSideMenuElements.get(i).shouldHave(text(expectedServiceContent[i].toString()));
         }
+    }
+
+    public ServicePage navigateToDifferentElementsPage()
+    {
+        // click on menu
+        serviceHeaderLink.click();
+        // navigate to page
+        differentElementsOption.click();
+        // return page object of page
+        return Selenide.page(ServicePage.class);
     }
 }
