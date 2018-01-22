@@ -5,7 +5,7 @@ public enum ServiceContentEnum {
     TEXT2("Dates"),
     TEXT3("Complex Table"),
     TEXT4("Simple Table"),
-    TEXT5("Tables With Wages"),
+    TEXT5("Table With Pages"),
     TEXT6("Different Elements");
 
     private final String text;

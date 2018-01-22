@@ -3,17 +3,20 @@ package pageObjects;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.testng.Assert;
 
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -22,7 +25,7 @@ import static org.testng.Assert.assertTrue;
  */
 public class IndexPage {
 
-    @FindBy(css = ".uui-profile-menu .dropdown-toggle")
+    @FindBy(how = How.CSS, using = ".uui-profile-menu .dropdown-toggle")
     private SelenideElement loginFormButton;
 
     @FindBy(css = "#Login")
@@ -61,14 +64,13 @@ public class IndexPage {
     @FindBy(css = ".dropdown-menu a")
     private List<SelenideElement> serviceHeaderElements;
 
+    public void open() {
+        Selenide.open("https://jdi-framework.github.io/tests");
 
-    public void open(WebDriver driver) {
-        driver.navigate().to("https://jdi-framework.github.io/tests");
-        driver.manage().window().maximize();
     }
 
-    public void checkTitle(WebDriver driver, String expectedTitle) {
-        Assert.assertEquals(driver.getTitle(), expectedTitle);
+    public void checkTitle(String expectedTitle) {
+        Assert.assertEquals(getWebDriver().getTitle(), expectedTitle);
     }
 
     public void login(String name, String password) {
@@ -122,6 +124,4 @@ public class IndexPage {
             serviceSideMenuElements.get(i).shouldHave(text(expectedServiceContent[i].toString()));
         }
     }
-}
-
 }
