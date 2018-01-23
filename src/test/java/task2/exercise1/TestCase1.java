@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class Exercise1 extends TestBase {
+public class TestCase1 extends TestBase {
     // simple comment to try merge into master
     List<WebElement> texts;
 

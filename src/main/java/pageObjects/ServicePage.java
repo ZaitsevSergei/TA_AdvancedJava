@@ -3,19 +3,24 @@ package pageObjects;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import enums.elements.SelectedEnum;
 import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import java.io.Console;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Condition.checked;
+import static com.codeborne.selenide.Condition.selected;
 import static com.codeborne.selenide.Condition.visible;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class ServicePage {
 
@@ -53,11 +58,11 @@ public class ServicePage {
     }
 
     // select and assert checkboxes
-    public void selectCheckboxes(CheckboxesEnum[] checkboxesToSelect, Condition condition) {
+    public void selectCheckboxes(CheckboxesEnum[] checkboxesToSelect, SelectedEnum condition) {
         for (CheckboxesEnum checkbox : checkboxesToSelect) {
             SelenideElement element = checkboxes.get(checkbox.toInt());
             element.click();
-            element.is(condition);
+            assertEquals(element.isSelected(), condition.toBoolean());
         }
     }
 
@@ -65,7 +70,7 @@ public class ServicePage {
     public void selectRadioButtons(RadioButtonsEnum radioButtonToSelect) {
         SelenideElement element = radioButtons.get(radioButtonToSelect.toInt());
         element.click();
-        element.is(checked);
+        assertTrue(element.isSelected());
     }
 
     // select element in dropdown
@@ -75,7 +80,7 @@ public class ServicePage {
     }
 
     // check log for checkbox, radio and dropdown actions
-    public void checkLogs(String[] items, boolean condition) {
+    public void checkLogs(String[] items, SelectedEnum condition) {
         // get log records in list of string
         List<String> textLogs = logs.texts();
         // create regex pattern to get item name
@@ -86,23 +91,27 @@ public class ServicePage {
             // search item with condition
             // if item not found NoSuchElementException will throw test failed
             // else all is ok
-            textLogs.stream().filter((log) -> {
-                // find item or item type name (before ':' character)
-                Matcher itemMatcher = itemPattern.matcher(log);
-                itemMatcher.find();
+            try {
+                textLogs.stream().filter((log) -> {
+                    // find item or item type name (before ':' character)
+                    Matcher itemMatcher = itemPattern.matcher(log);
+                    itemMatcher.find();
 
-                // find item name or item condition (after word 'to')
-                Matcher conditionMatcher = conditionPattern.matcher(log);
-                conditionMatcher.find();
+                    // find item name or item condition (after word 'to')
+                    Matcher conditionMatcher = conditionPattern.matcher(log);
+                    conditionMatcher.find();
 
-                // if item name found check condition
-                if (itemMatcher.group().equals(item)) {
-                    return Boolean.parseBoolean(conditionMatcher.group()) == condition;
-                } else {
-                    // founded item type, check item name
-                    return item.equals(conditionMatcher.group());
-                }
-            }).findFirst().get();
+                    // if item name found check condition
+                    if (itemMatcher.group().equals(item)) {
+                        return Boolean.parseBoolean(conditionMatcher.group()) == condition.toBoolean();
+                    } else {
+                        // founded item type, check item name
+                        return item.equals(conditionMatcher.group());
+                    }
+                }).findFirst().get();
+            } catch (NoSuchElementException e) {
+                System.out.println(item);
+            }
         }
     }
 }

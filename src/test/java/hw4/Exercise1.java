@@ -2,6 +2,7 @@ package hw4;
 
 import base.BaseSelenide;
 import com.codeborne.selenide.Condition;
+import enums.elements.SelectedEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
@@ -34,7 +35,7 @@ public class Exercise1 extends BaseSelenide {
         servicePage.checkInterface();
 
         // 10. Select and assert checkboxes
-        servicePage.selectCheckboxes(new CheckboxesEnum[] {CheckboxesEnum.WATER, CheckboxesEnum.WIND}, Condition.checked);
+        servicePage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.SELECTED);
 
         // 11. Select radio
         servicePage.selectRadioButtons(RadioButtonsEnum.SELEN);
@@ -44,9 +45,14 @@ public class Exercise1 extends BaseSelenide {
 
         // 13. Check in logs section selected values and status (true|false)
         servicePage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString(),
-                                           RadioButtonsEnum.SELEN.toString(), DropdownEnum.YELLOW.toString()}, true);
+                RadioButtonsEnum.SELEN.toString(), DropdownEnum.YELLOW.toString()}, SelectedEnum.SELECTED);
 
+        // 14. Unselect and assert checkboxes
+        servicePage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.UNSELECTED);
 
+        // 15. Check in logs section unselected values and status (true|false)
+        servicePage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()},
+                SelectedEnum.UNSELECTED);
     }
 
     //  test index page
