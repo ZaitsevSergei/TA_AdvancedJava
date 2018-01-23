@@ -1,18 +1,22 @@
 package pageObjects;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import enums.servicePageEnums.CheckboxesEnum;
+import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.$;
 
 public class ServicePage {
 
-    @FindBy(css = ".label-checkbox")
-    private ElementsCollection checkBoxes;
+    @FindBy(css = ".label-checkbox input")
+    private ElementsCollection checkboxes;
 
-    @FindBy(css = ".label-radio")
+    @FindBy(css = ".label-radio input")
     private ElementsCollection radioButtons;
 
     @FindBy(css = ".colors .uui-form-element")
@@ -29,10 +33,9 @@ public class ServicePage {
 
     /* Check interface on Service page, it contains all needed elements.
     4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
-    public void checkInterface()
-    {
+    public void checkInterface() {
         // check checkboxes
-        Assert.assertEquals(checkBoxes.size(), 4);
+        Assert.assertEquals(checkboxes.size(), 4);
         // check radio buttons
         Assert.assertEquals(radioButtons.size(), 4);
         // check dropdown
@@ -42,4 +45,21 @@ public class ServicePage {
         // check button
         button.should(visible);
     }
+
+    // select and assert checkboxes
+    public void selectCheckboxes(CheckboxesEnum[] checkboxesToSelect, Condition condition) {
+        for (CheckboxesEnum checkbox : checkboxesToSelect) {
+            SelenideElement element = checkboxes.get(checkbox.toInt());
+            element.click();
+            element.is(condition);
+        }
+    }
+
+    // select and assert radio button
+    public void selectRadioButtons(RadioButtonsEnum radioButtonToSelect) {
+        SelenideElement element = radioButtons.get(radioButtonToSelect.toInt());
+        element.click();
+        element.is(checked);
+    }
 }
+

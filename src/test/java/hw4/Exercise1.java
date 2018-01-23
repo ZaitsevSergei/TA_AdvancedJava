@@ -1,22 +1,24 @@
 package hw4;
 
 import base.BaseSelenide;
+import com.codeborne.selenide.Condition;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
 import enums.indexPageEnums.ServiceContentEnum;
+import enums.servicePageEnums.CheckboxesEnum;
+import enums.servicePageEnums.RadioButtonsEnum;
 import org.testng.annotations.Test;
 import pageObjects.ServicePage;
 import pageObjects.IndexPageOnSelenide;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class Exercise1 extends BaseSelenide{
+public class Exercise1 extends BaseSelenide {
 
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
-    public void differentElementsPageActionsTest()
-    {
+    public void differentElementsPageActionsTest() {
         // 2. Open test site by URL
         IndexPageOnSelenide page = open("https://jdi-framework.github.io/tests", IndexPageOnSelenide.class);
 
@@ -31,7 +33,10 @@ public class Exercise1 extends BaseSelenide{
         servicePage.checkInterface();
 
         // 10. Select and assert checkboxes
+        servicePage.selectCheckboxes(new CheckboxesEnum[] {CheckboxesEnum.WATER, CheckboxesEnum.WIND}, Condition.checked);
 
+        // 11. Select radio
+        servicePage.selectRadioButtons(RadioButtonsEnum.SELEN);
 
 
     }
@@ -39,7 +44,7 @@ public class Exercise1 extends BaseSelenide{
     //  test index page
     private void testIndexPage(IndexPageOnSelenide page) {
         // 3. Perform login
-        page.login("epam","1234");
+        page.login("epam", "1234");
 
         // 4. Assert User name in the left-top side of screen that user is loggined
         page.checkUserName("Piter Chailovskii");
