@@ -7,7 +7,7 @@ import enums.indexPageEnums.MainTextEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import org.testng.annotations.Test;
 import pageObjects.ServicePage;
-import pageObjects.IndexPage;
+import pageObjects.IndexPageOnSelenide;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -18,7 +18,7 @@ public class Exercise1 extends BaseSelenide{
     public void differentElementsPageActionsTest()
     {
         // 2. Open test site by URL
-        IndexPage page = open("https://jdi-framework.github.io/tests", IndexPage.class);
+        IndexPageOnSelenide page = open("https://jdi-framework.github.io/tests", IndexPageOnSelenide.class);
 
         // test index page
         testIndexPage(page);
@@ -36,7 +36,7 @@ public class Exercise1 extends BaseSelenide{
 
     }
 
-    private void testIndexPage(IndexPage page) {
+    private void testIndexPage(IndexPageOnSelenide page) {
         // 3. Perform login
         page.login("epam","1234");
 

@@ -1,18 +1,14 @@
 package pageObjects;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import enums.indexPageEnums.BenefitsTextsEnum;
-import enums.indexPageEnums.ServiceContentEnum;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.testng.Assert;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -21,55 +17,44 @@ import static org.testng.Assert.assertTrue;
  */
 public class IndexPage {
 
-    @FindBy(how = How.CSS, using = ".uui-profile-menu .dropdown-toggle")
-    private SelenideElement loginFormButton;
+    private final WebDriver driver;
+
+    @FindBy(css = ".uui-profile-menu .dropdown-toggle")
+    private WebElement loginFormButton;
 
     @FindBy(css = "#Login")
-    private SelenideElement loginInput;
+    private WebElement loginInput;
 
     @FindBy(css = "#Password")
-    private SelenideElement passordInput;
+    private WebElement passordInput;
 
     @FindBy(css = ".form-horizontal [type='submit']")
-    private SelenideElement submitButton;
-
-    @FindBy(css = ".profile-photo span")
-    private SelenideElement userName;
+    private WebElement submitButton;
 
     @FindBy(css = ".icons-benefit")
-    private List<SelenideElement> benefitsIcons;
+    private List<WebElement> benefitsIcons;
 
     @FindBy(css = ".benefit-txt")
-    private ElementsCollection benefitsTexts;
+    private List<WebElement> benefitsTexts;
 
     @FindBy(css = ".main-title")
-    private SelenideElement header;
+    private WebElement header;
 
     @FindBy(css = ".main-txt")
-    private SelenideElement mainText;
+    private WebElement mainText;
 
-    @FindBy(css = ".sub-menu a[href='page1.htm']")
-    private SelenideElement serviceSideMenuLink;
+    public IndexPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
-    @FindBy(css = ".dropdown a[href='page1.htm']")
-    private SelenideElement serviceHeaderLink;
-
-    @FindBy(css = ".sub a")
-    private ElementsCollection serviceSideMenuElements;
-
-    @FindBy(css = ".dropdown-menu a")
-    private ElementsCollection serviceHeaderElements;
-
-    @FindBy(css = ".dropdown-menu a[href='page8.htm']")
-    private SelenideElement differentElementsOption;
-
-    public void open() {
-        Selenide.open("https://jdi-framework.github.io/tests");
-
+    public void open()
+    {
+        driver.navigate().to("https://jdi-framework.github.io/tests");
+        driver.manage().window().maximize();
     }
 
     public void checkTitle(String expectedTitle) {
-        Assert.assertEquals(getWebDriver().getTitle(), expectedTitle);
+        Assert.assertEquals(expectedTitle, driver.getTitle());
     }
 
     public void login(String name, String password) {
@@ -82,55 +67,31 @@ public class IndexPage {
 
     public void checkUserName(String expectedUserName) {
         // Assert User name is visible
-        userName.shouldHave(text(expectedUserName));
+        boolean userNameVisibility = driver.findElement(By.cssSelector(".profile-photo span")).isDisplayed();
+        assertTrue(userNameVisibility);
+        // get User name
+        String userName = driver.findElement(By.cssSelector(".profile-photo span")).getAttribute("innerHTML");
+        assertEquals(expectedUserName, userName);
     }
 
-    public void checkBenefitsIconsCount(int expectedCount) {
-        assertEquals(benefitsIcons.size(), expectedCount);
-    }
-
-    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
-        for (int i = 0; i < benefitsIcons.size(); i++) {
-            benefitsTexts.get(i).shouldHave(text(expectedTexts[i].toString()));
-        }
-    }
-
-    public void checkHeader(String expectedHeaderText) {
-        header.shouldHave(text(expectedHeaderText));
-
-    }
-
-    public void checkMainText(String expectedMainText) {
-        mainText.shouldHave(text(expectedMainText));
-    }
-
-    public void checkHeaderServiceContent(ServiceContentEnum[] expectedServiceContent) {
-        // click on link
-        serviceHeaderLink.click();
-
-        // check content
-        for (int i = 0; i < serviceHeaderElements.size(); i++) {
-            serviceHeaderElements.get(i).shouldHave(text(expectedServiceContent[i].toString()));
-        }
-    }
-
-    public void checkSideMenuServiceContent(ServiceContentEnum[] expectedServiceContent) {
-        // click on link
-        serviceSideMenuLink.click();
-
-        // check content
-        for (int i = 0; i < serviceSideMenuElements.size(); i++) {
-            serviceSideMenuElements.get(i).shouldHave(text(expectedServiceContent[i].toString()));
-        }
-    }
-
-    public ServicePage navigateToDifferentElementsPage()
+    public void checkBenefitsIconsCount(int expectedCount)
     {
-        // click on menu
-        serviceHeaderLink.click();
-        // navigate to page
-        differentElementsOption.click();
-        // return page object of page
-        return Selenide.page(ServicePage.class);
+        assertEquals(expectedCount, benefitsIcons.size());
+    }
+
+    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts){
+        for (int i = 0; i < benefitsIcons.size(); i++) {
+            assertEquals(expectedTexts[i].toString(), benefitsTexts.get(i).getText());
+        }
+    }
+
+    public void checkHeader(String expectedHeaderText)
+    {
+        assertEquals(expectedHeaderText, header.getText());
+    }
+
+    public void checkMainText(String expectedMainText)
+    {
+        assertEquals(expectedMainText, mainText.getText());
     }
 }

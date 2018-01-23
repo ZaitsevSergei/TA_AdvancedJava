@@ -8,6 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 import pageObjects.IndexPage;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Exercise2 extends TestBase{
 
     @Test
