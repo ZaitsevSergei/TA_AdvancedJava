@@ -7,6 +7,7 @@ import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import enums.servicePageEnums.CheckboxesEnum;
+import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.testng.annotations.Test;
 import pageObjects.ServicePage;
@@ -37,6 +38,9 @@ public class Exercise1 extends BaseSelenide {
 
         // 11. Select radio
         servicePage.selectRadioButtons(RadioButtonsEnum.SELEN);
+
+        // 12.Select in dropdown Yellow
+        servicePage.selectDropdownItem(DropdownEnum.YELLOW);
 
 
     }

@@ -4,12 +4,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import enums.servicePageEnums.CheckboxesEnum;
+import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class ServicePage {
 
@@ -60,6 +62,12 @@ public class ServicePage {
         SelenideElement element = radioButtons.get(radioButtonToSelect.toInt());
         element.click();
         element.is(checked);
+    }
+
+    // select element in dropdown
+    public void selectDropdownItem(DropdownEnum item) {
+        dropdownElement.selectOption(item.toString());
+        assertEquals(dropdownElement.getSelectedText(), item.toString());
     }
 }
 
