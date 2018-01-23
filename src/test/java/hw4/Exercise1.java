@@ -42,6 +42,10 @@ public class Exercise1 extends BaseSelenide {
         // 12.Select in dropdown Yellow
         servicePage.selectDropdownItem(DropdownEnum.YELLOW);
 
+        // 13. Check in logs section selected values and status (true|false)
+        servicePage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()/*,
+                                           RadioButtonsEnum.SELEN.toString(), DropdownEnum.YELLOW.toString()*/}, true);
+
 
     }
 

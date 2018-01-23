@@ -3,11 +3,17 @@ package pageObjects;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.sun.javafx.scene.layout.region.Margins;
 import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+
+import javax.annotation.RegEx;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -68,6 +74,25 @@ public class ServicePage {
     public void selectDropdownItem(DropdownEnum item) {
         dropdownElement.selectOption(item.toString());
         assertEquals(dropdownElement.getSelectedText(), item.toString());
+    }
+
+    public void checkLogs(String[] items, boolean condition) {
+        List<String> textLogs = logs.texts();
+        // create regex pattern to get item name
+        Pattern itemPattern = Pattern.compile("(?<= ).*?(?=:)");
+        // create regex pattern to get item condition
+        Pattern conditionPattern = Pattern.compile("(?<=to ).*$");
+        for (String item:items) {
+            String itemLog = textLogs.stream().filter((log) -> {
+                                            Matcher itemMatcher = itemPattern.matcher(log);
+                                            itemMatcher.find();
+                                            return item.equals(itemMatcher.group());
+                                        }).findFirst().get();
+            Matcher conditionMatcher = conditionPattern.matcher(itemLog);
+            conditionMatcher.find();
+            String conditionRes = conditionMatcher.group();
+            assertEquals(Boolean.parseBoolean(conditionRes), condition);
+        }
     }
 }
 
