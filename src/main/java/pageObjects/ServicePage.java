@@ -27,19 +27,19 @@ public class ServicePage {
     @FindBy(css = ".panel-body-list.logs li")
     private ElementsCollection logs;
 
+    /* Check interface on Service page, it contains all needed elements.
+    4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
     public void checkInterface()
     {
         // check checkboxes
-        Assert.assertNotEquals(checkBoxes.size(), 0);
+        Assert.assertEquals(checkBoxes.size(), 4);
         // check radio buttons
-        Assert.assertNotEquals(radioButtons.size(), 0);
+        Assert.assertEquals(radioButtons.size(), 4);
         // check dropdown
         dropdownElement.should(visible);
         // check default button
         defaultButton.should(visible);
         // check button
         button.should(visible);
-
-
     }
 }

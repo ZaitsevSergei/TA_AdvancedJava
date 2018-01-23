@@ -36,6 +36,7 @@ public class Exercise1 extends BaseSelenide{
 
     }
 
+    //  test index page
     private void testIndexPage(IndexPageOnSelenide page) {
         // 3. Perform login
         page.login("epam","1234");
