@@ -1,6 +1,5 @@
 package pageObjects;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import enums.elements.SelectedEnum;
@@ -10,19 +9,16 @@ import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import java.io.Console;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.codeborne.selenide.Condition.checked;
-import static com.codeborne.selenide.Condition.selected;
 import static com.codeborne.selenide.Condition.visible;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-public class ServicePage {
+public class DifferentElementsPage {
 
     @FindBy(css = ".label-checkbox input")
     private ElementsCollection checkboxes;

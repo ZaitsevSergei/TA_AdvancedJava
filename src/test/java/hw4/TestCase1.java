@@ -1,7 +1,6 @@
 package hw4;
 
 import base.BaseSelenide;
-import com.codeborne.selenide.Condition;
 import enums.elements.SelectedEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
@@ -11,12 +10,12 @@ import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.testng.annotations.Test;
-import pageObjects.ServicePage;
 import pageObjects.IndexPageOnSelenide;
+import pageObjects.DifferentElementsPage;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 
-public class Exercise1 extends BaseSelenide {
+public class TestCase1 extends BaseSelenide {
 
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
@@ -29,30 +28,10 @@ public class Exercise1 extends BaseSelenide {
 
 
         // 8. Open through the header menu Service -> Different Elements Page
-        ServicePage servicePage = page.navigateToDifferentElementsPage();
+        DifferentElementsPage dEPage = page.navigateToDifferentElementsPage();
 
-        // 9. Check interface on Service page, it contains all needed elements.
-        servicePage.checkInterface();
-
-        // 10. Select and assert checkboxes
-        servicePage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.SELECTED);
-
-        // 11. Select radio
-        servicePage.selectRadioButtons(RadioButtonsEnum.SELEN);
-
-        // 12.Select in dropdown Yellow
-        servicePage.selectDropdownItem(DropdownEnum.YELLOW);
-
-        // 13. Check in logs section selected values and status (true|false)
-        servicePage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString(),
-                RadioButtonsEnum.SELEN.toString(), DropdownEnum.YELLOW.toString()}, SelectedEnum.SELECTED);
-
-        // 14. Unselect and assert checkboxes
-        servicePage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.UNSELECTED);
-
-        // 15. Check in logs section unselected values and status (true|false)
-        servicePage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()},
-                SelectedEnum.UNSELECTED);
+        // test Different elements page
+        testDifferentElementsPage(dEPage);
     }
 
     //  test index page
@@ -78,5 +57,31 @@ public class Exercise1 extends BaseSelenide {
 
         // 7. Click on Service subcategory in the left section and check that drop down contains options
         page.checkSideMenuServiceContent(ServiceContentEnum.values());
+    }
+
+    // test Different elements page
+    private void testDifferentElementsPage(DifferentElementsPage page) {
+        // 9. Check interface on Service page, it contains all needed elements.
+        page.checkInterface();
+
+        // 10. Select and assert checkboxes
+        page.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.SELECTED);
+
+        // 11. Select radio
+        page.selectRadioButtons(RadioButtonsEnum.SELEN);
+
+        // 12.Select in dropdown Yellow
+        page.selectDropdownItem(DropdownEnum.YELLOW);
+
+        // 13. Check in logs section selected values and status (true|false)
+        page.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString(),
+                RadioButtonsEnum.SELEN.toString(), DropdownEnum.YELLOW.toString()}, SelectedEnum.SELECTED);
+
+        // 14. Unselect and assert checkboxes
+        page.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.UNSELECTED);
+
+        // 15. Check in logs section unselected values and status (true|false)
+        page.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()},
+                SelectedEnum.UNSELECTED);
     }
 }

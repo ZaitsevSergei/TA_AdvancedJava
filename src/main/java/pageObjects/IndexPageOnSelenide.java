@@ -6,10 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.testng.Assert;
-
-import java.util.List;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -123,13 +120,12 @@ public class IndexPageOnSelenide {
         }
     }
 
-    public ServicePage navigateToDifferentElementsPage()
-    {
+    public DifferentElementsPage navigateToDifferentElementsPage() {
         // click on menu
         serviceHeaderLink.click();
         // navigate to page
         differentElementsOption.click();
         // return page object of page
-        return Selenide.page(ServicePage.class);
+        return Selenide.page(DifferentElementsPage.class);
     }
 }
