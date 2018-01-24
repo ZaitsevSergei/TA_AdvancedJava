@@ -1,7 +1,9 @@
 package hw4;
 
 import base.BaseSelenide;
+import enums.elements.LoginEnum;
 import enums.elements.SelectedEnum;
+import enums.elements.UserName;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
@@ -37,10 +39,10 @@ public class TestCase1 extends BaseSelenide {
     //  test index page
     private void testIndexPage(IndexPageOnSelenide page) {
         // 3. Perform login
-        page.login("epam", "1234");
+        page.login(LoginEnum.EPAM);
 
         // 4. Assert User name in the left-top side of screen that user is loggined
-        page.checkUserName("Piter Chailovskii");
+        page.checkUserName(UserName.PITER_CHAILOVSKII);
 
         // 5. Check interface on Home page, it contains all needed elements.
         // check image count

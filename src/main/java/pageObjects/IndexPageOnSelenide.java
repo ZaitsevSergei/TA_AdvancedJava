@@ -3,6 +3,8 @@ package pageObjects;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import enums.elements.LoginEnum;
+import enums.elements.UserName;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import org.openqa.selenium.support.FindBy;
@@ -57,7 +59,10 @@ public class IndexPageOnSelenide {
     private ElementsCollection serviceHeaderElements;
 
     @FindBy(css = ".dropdown-menu a[href='page8.htm']")
-    private SelenideElement differentElementsOption;
+    private SelenideElement differentElementsLink;
+
+    @FindBy(css = ".dropdown-menu a[href='page4.htm']")
+    private SelenideElement datesLink;
 
     public void open() {
         Selenide.open("https://jdi-framework.github.io/tests");
@@ -68,17 +73,17 @@ public class IndexPageOnSelenide {
         Assert.assertEquals(getWebDriver().getTitle(), expectedTitle);
     }
 
-    public void login(String name, String password) {
+    public void login(LoginEnum login) {
         loginFormButton.click();
 
-        loginInput.sendKeys(name);
-        passordInput.sendKeys(password);
+        loginInput.sendKeys(login.getLogin());
+        passordInput.sendKeys(login.getPassword());
         submitButton.click();
     }
 
-    public void checkUserName(String expectedUserName) {
+    public void checkUserName(UserName expectedUserName) {
         // Assert User name is visible
-        userName.shouldHave(text(expectedUserName));
+        userName.shouldHave(text(expectedUserName.toString()));
     }
 
     public void checkBenefitsIconsCount(int expectedCount) {
@@ -124,8 +129,17 @@ public class IndexPageOnSelenide {
         // click on menu
         serviceHeaderLink.click();
         // navigate to page
-        differentElementsOption.click();
+        differentElementsLink.click();
         // return page object of page
         return Selenide.page(DifferentElementsPage.class);
+    }
+
+    public DatesPage navigateToDatesPage() {
+        // click on menu
+        serviceHeaderLink.click();
+        // navigate to page
+        datesLink.click();
+        // return page object of page
+        return Selenide.page(DatesPage.class);
     }
 }
