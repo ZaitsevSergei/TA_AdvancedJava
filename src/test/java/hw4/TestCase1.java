@@ -27,7 +27,6 @@ public class TestCase1 extends BaseSelenide {
         // test index page
         testIndexPage(page);
 
-
         // 8. Open through the header menu Service -> Different Elements Page
         DifferentElementsPage dEPage = page.navigateToDifferentElementsPage();
 
