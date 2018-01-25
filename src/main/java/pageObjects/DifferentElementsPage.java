@@ -43,8 +43,8 @@ public class DifferentElementsPage {
     private SelenideElement button;
 
     // list of logs in log panel
-    @FindBy(css = ".panel-body-list.logs li")
-    private ElementsCollection logs;
+    @FindBy(css = ".panel-body-list.logs")
+    private SelenideElement logs;
 
     /* Check interface on Service page, it contains all needed elements.
     4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
@@ -85,43 +85,38 @@ public class DifferentElementsPage {
 
     // check log for checkbox, radio and dropdown actions
     public void checkLogs(String[] items, SelectedEnum condition) {
-        // get log records in list of string
-        List<String> textLogs = getLogs();
+
         // create regex pattern to get item name
         Pattern itemPattern = Pattern.compile("(?<= ).*?(?=:)");
         // create regex pattern to get item condition
         Pattern conditionPattern = Pattern.compile("(?<=to ).*$");
+        // get logs records
+        ElementsCollection logRecords = logs.$$("li");
+
         for (String item : items) {
             // search item with condition
             // if item not found NoSuchElementException will thrown, test failed
             // else all is ok
-//            textLogs.stream().filter(validateLog(condition, itemPattern, conditionPattern, item)).findFirst().get();
             try {
-                textLogs.stream().filter(validateLog(condition, itemPattern, conditionPattern, item)).findFirst().get();
-            } catch (NoSuchElementException e) {
+                logRecords.stream().filter(validateLog(condition, itemPattern, conditionPattern, item)).findFirst().get();
+            }
+            catch (NoSuchElementException e)
+            {
                 System.out.println(item);
             }
+
         }
     }
 
-    private List<String> getLogs() {
-        List<String> textLogs = new ArrayList<>();
-        for(SelenideElement log:logs)
-        {
-            textLogs.add(log.getText());
-        }
-
-        return textLogs;
-    }
-
-    private Predicate<String> validateLog(SelectedEnum condition, Pattern itemPattern, Pattern conditionPattern, String item) {
+    // validate log with item and item condition
+    private Predicate<SelenideElement> validateLog(SelectedEnum condition, Pattern itemPattern, Pattern conditionPattern, String item) {
         return (log) -> {
             // find item name or item type (before ':' character)
-            Matcher itemMatcher = itemPattern.matcher(log);
+            Matcher itemMatcher = itemPattern.matcher(log.getText());
             itemMatcher.find();
 
             // find item name or item condition (after word 'to')
-            Matcher conditionMatcher = conditionPattern.matcher(log);
+            Matcher conditionMatcher = conditionPattern.matcher(log.getText());
             conditionMatcher.find();
 
             // if item name found check condition
