@@ -46,6 +46,14 @@ public class DifferentElementsPage {
     @FindBy(css = ".panel-body-list.logs")
     private SelenideElement logs;
 
+    // left section
+    @FindBy(css = ".sidebar-menu")
+    private SelenideElement leftSection;
+
+    // right section
+    @FindBy(css = "#mCSB_1_container")
+    private SelenideElement rightSection;
+
     /* Check interface on Service page, it contains all needed elements.
     4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
     public void checkInterface() {
@@ -59,6 +67,11 @@ public class DifferentElementsPage {
         defaultButton.should(visible);
         // check button
         button.should(visible);
+
+        // check left section
+        leftSection.should(visible);
+        // check right section
+        rightSection.should(visible);
     }
 
     // select and assert checkboxes
