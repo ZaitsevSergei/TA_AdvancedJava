@@ -2,6 +2,7 @@ package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
 import enums.datesEnums.SlidersPosition;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Selenide.actions;
@@ -20,6 +21,7 @@ public class DatesPage {
     @FindBy(css = ".ui-slider-range")
     private SelenideElement sliderRange;
 
+
     /**
      * Set sliders position
      */
@@ -32,31 +34,53 @@ public class DatesPage {
     }
 
     // set position of specific slider
-    private void setSliderPosition(SelenideElement slider, int position) {
-        double positionPx = getPositionOnPx(position);
+    private void setSliderPosition(SelenideElement slider, int desiredPosition) {
+        // calculate desired slider position in pixels
+        double desiredPositionPx = getPositionInPx(desiredPosition);
+        // calculate current position in pixels
         double currentPosition = getCurrentPosition(slider);
-        double offset = positionPx - currentPosition;
-        int xOffset;
-        if (offset < 0) {
-            xOffset = (int) Math.floor(offset);
-        } else {
-            xOffset = (int) Math.ceil(offset);
+        // calculate offset to move slider to desired position
+        double offset = desiredPositionPx - currentPosition;
+
+        // drag slider to desired position
+        actions().dragAndDropBy(slider, (int) offset, 0).perform();
+
+        // check position
+        int currentPositionPct = Integer.parseInt(slider.getText());
+        if (currentPositionPct > desiredPosition) {
+            moveSlider(slider, Keys.ARROW_LEFT, desiredPosition);
+        } else if (currentPosition < desiredPosition) {
+            moveSlider(slider, Keys.ARROW_RIGHT, desiredPosition);
         }
-        actions().dragAndDropBy(slider, xOffset, 0).perform();
+
+
     }
 
-    // get position in pixels appropriate position in percentage
-    private double getPositionOnPx(int positionPct) {
+    private void moveSlider(SelenideElement slider, Keys arrow, int desiredPosition) {
+        while (Integer.parseInt(slider.getText()) != desiredPosition)
+        {
+            slider.sendKeys(arrow);
+        }
+    }
+
+    // convert position in percentage to pixels
+    private double getPositionInPx(int positionPct) {
         return sliderTrack.getSize().width * positionPct / 100;
     }
+
+    // convert position in pixels to percentage
+    private int getPositionInPct(double positionPx) {
+        return (int) positionPx * 100 / sliderTrack.getSize().width;
+    }
+
 
     // check sliders position and range
     private void checkSlidersPosition(SlidersPosition slidersPosition) {
         // check positions
-        double leftSliderPosition = getPositionOnPx(slidersPosition.getLeftSlider());
-        double rightSliderPosition = getPositionOnPx(slidersPosition.getRigthSlider());
-        assertEquals(leftSliderPosition, getPositionOnPx(slidersPosition.getLeftSlider()));
-        assertEquals(rightSliderPosition, getPositionOnPx(slidersPosition.getRigthSlider()));
+        int leftSliderPosition = slidersPosition.getLeftSlider();
+        int rightSliderPosition = slidersPosition.getRigthSlider();
+        assertEquals(leftSliderPosition, Integer.parseInt(leftSlider.getText()));
+        assertEquals(rightSliderPosition, Integer.parseInt(rightSlider.getText()));
 
         //check range
         assertEquals(rightSliderPosition - leftSliderPosition,
