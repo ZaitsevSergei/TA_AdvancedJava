@@ -25,6 +25,16 @@ public class TestCase2 extends BaseSelenide {
 
         // 5. Open Service -> Dates
         DatesPage datesPage = page.navigateToDatesPage();
+        // 6. Using drag-and-drop set Range sliders. left sliders - the most left position, right slider - the most rigth position
+        datesPage.setSlidersPosition(SlidersPosition.MAX_RANGE);
+
+        // 7. Using drag-and-drop set Range sliders. left sliders - the most left position, right slider - the most left position.
+        datesPage.setSlidersPosition(SlidersPosition.MIN_RANGE);
+
+        // 8. Using drag-and-drop set Range sliders. left sliders - the most rigth position, right slider - the most rigth position.
+        datesPage.setSlidersPosition(SlidersPosition.MIN_RANGE2);
+
+        // 9. Using drag-and-drop set Range sliders. left - 30, right - 70
         datesPage.setSlidersPosition(SlidersPosition.CUSTOM1);
     }
 }
