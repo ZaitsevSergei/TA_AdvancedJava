@@ -11,7 +11,7 @@ public abstract class BaseSelenide {
         Configuration.startMaximized = true;
 
         Configuration.timeout = 6000;
-        Configuration.pollingInterval = 200;
-        Configuration.collectionsPollingInterval = 300;
+        Configuration.pollingInterval = 1000;
+        Configuration.collectionsPollingInterval = 1000;
     }
 }

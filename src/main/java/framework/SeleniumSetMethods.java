@@ -13,6 +13,7 @@ public class SeleniumSetMethods {
      */
     public static void enterText(How attribute, String attributeValue, String testValue) {
         WebElement webElement = WebDriverTools.findElement(attribute, attributeValue);
+        assert webElement != null;
         webElement.sendKeys(testValue);
     }
 
@@ -24,6 +25,7 @@ public class SeleniumSetMethods {
      */
     public static void click(How attribute, String attributeValue) {
         WebElement webElement = WebDriverTools.findElement(attribute, attributeValue);
+        assert webElement != null;
         webElement.click();
     }
 }
