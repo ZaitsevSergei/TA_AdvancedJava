@@ -21,7 +21,8 @@ public class DatesPage {
     private SelenideElement sliderRange;
 
     /**
-     * Set sliders position*/
+     * Set sliders position
+     */
     public void setSlidersPosition(SlidersPosition slidersPosition) {
         // set left and right sliders position
         setSliderPosition(leftSlider, slidersPosition.getLeftSlider());
@@ -32,44 +33,40 @@ public class DatesPage {
 
     // set position of specific slider
     private void setSliderPosition(SelenideElement slider, int position) {
-        int xOffset = (position - getCurrentPosition(slider)) * getStep();
+        double positionPx = getPositionOnPx(position);
+        double currentPosition = getCurrentPosition(slider);
+        double offset = positionPx - currentPosition;
+        int xOffset;
+        if (offset < 0) {
+            xOffset = (int) Math.floor(offset);
+        } else {
+            xOffset = (int) Math.ceil(offset);
+        }
         actions().dragAndDropBy(slider, xOffset, 0).perform();
+    }
+
+    // get position in pixels appropriate position in percentage
+    private double getPositionOnPx(int positionPct) {
+        return sliderTrack.getSize().width * positionPct / 100;
     }
 
     // check sliders position and range
     private void checkSlidersPosition(SlidersPosition slidersPosition) {
         // check positions
-        int leftSliderPosition = getSliderPositionInPersentage(leftSlider);
-        int rightSliderPosition = getSliderPositionInPersentage(rightSlider);
-        assertEquals(leftSliderPosition, slidersPosition.getLeftSlider());
-        assertEquals(rightSliderPosition, slidersPosition.getRigthSlider());
+        double leftSliderPosition = getPositionOnPx(slidersPosition.getLeftSlider());
+        double rightSliderPosition = getPositionOnPx(slidersPosition.getRigthSlider());
+        assertEquals(leftSliderPosition, getPositionOnPx(slidersPosition.getLeftSlider()));
+        assertEquals(rightSliderPosition, getPositionOnPx(slidersPosition.getRigthSlider()));
 
         //check range
         assertEquals(rightSliderPosition - leftSliderPosition,
                 slidersPosition.getRigthSlider() - slidersPosition.getLeftSlider());
     }
 
-    /**
-     * Get step value in pixels
-     */
-    private Integer getStep() {
-        return sliderTrack.getSize().width / 100;
-    }
-
-    /**
-     * Get current position of slider
-     */
-    private int getCurrentPosition(SelenideElement slider) {
-
-        int sliderCenterPx = getSliderPositionInPersentage(slider) + slider.getSize().width / 2;
-
-        return sliderCenterPx / getStep() + 1;
-    }
-
-    // get current slider position in persentage
-    private int getSliderPositionInPersentage(SelenideElement slider) {
+    // get current slider position in pixels
+    private double getCurrentPosition(SelenideElement slider) {
         String value = slider.getCssValue("left").replaceAll("px", "");
-        return (int) Double.parseDouble(value);
+        return Double.parseDouble(value);
     }
 
 

@@ -3,8 +3,7 @@ package pageObjects;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import enums.elements.LoginEnum;
-import enums.elements.UserName;
+import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import org.openqa.selenium.support.FindBy;
@@ -73,7 +72,7 @@ public class IndexPageOnSelenide {
         Assert.assertEquals(getWebDriver().getTitle(), expectedTitle);
     }
 
-    public void login(LoginEnum login) {
+    public void login(UserEnum login) {
         loginFormButton.click();
 
         loginInput.sendKeys(login.getLogin());
@@ -81,9 +80,9 @@ public class IndexPageOnSelenide {
         submitButton.click();
     }
 
-    public void checkUserName(UserName expectedUserName) {
+    public void checkUserName(UserEnum user) {
         // Assert User name is visible
-        userName.shouldHave(text(expectedUserName.toString()));
+        userName.shouldHave(text(user.getUserName()));
     }
 
     public void checkBenefitsIconsCount(int expectedCount) {
