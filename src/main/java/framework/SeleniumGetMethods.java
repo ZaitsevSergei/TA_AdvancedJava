@@ -19,6 +19,7 @@ public class SeleniumGetMethods {
      */
     public static String getInputValue(How attribute, String attributeValue) {
         WebElement webElement = WebDriverTools.findElement(attribute, attributeValue);
+        assert webElement != null;
         return webElement.getAttribute("value");
     }
 
@@ -30,6 +31,7 @@ public class SeleniumGetMethods {
      */
     public static String getTagInnerHTML(How attribute, String attributeValue) {
         WebElement webElement = WebDriverTools.findElement(attribute, attributeValue);
+        assert webElement != null;
         return webElement.getAttribute("innerHTML");
     }
 
@@ -41,6 +43,7 @@ public class SeleniumGetMethods {
      */
     public static String getTagInnerText(How attribute, String attributeValue) {
         WebElement webElement = WebDriverTools.findElement(attribute, attributeValue);
+        assert webElement != null;
         return webElement.getText();
     }
 
@@ -57,6 +60,7 @@ public class SeleniumGetMethods {
         List<String> texts = new ArrayList<String>();
 
         // initilize list
+        assert webElements != null;
         for (WebElement webElement : webElements) {
             texts.add(webElement.getText());
         }
