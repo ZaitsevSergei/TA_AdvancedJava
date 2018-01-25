@@ -1,9 +1,8 @@
 package hw4;
 
 import base.BaseSelenide;
-import enums.elements.LoginEnum;
 import enums.elements.SelectedEnum;
-import enums.elements.UserName;
+import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
@@ -12,8 +11,8 @@ import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.testng.annotations.Test;
-import pageObjects.IndexPageOnSelenide;
 import pageObjects.DifferentElementsPage;
+import pageObjects.IndexPageOnSelenide;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -39,10 +38,10 @@ public class TestCase1 extends BaseSelenide {
     //  test index page
     private void testIndexPage(IndexPageOnSelenide page) {
         // 3. Perform login
-        page.login(LoginEnum.EPAM);
+        page.login(UserEnum.PITER_CHAILOVSKII);
 
         // 4. Assert User name in the left-top side of screen that user is loggined
-        page.checkUserName(UserName.PITER_CHAILOVSKII);
+        page.checkUserName(UserEnum.PITER_CHAILOVSKII);
 
         // 5. Check interface on Home page, it contains all needed elements.
         // check image count

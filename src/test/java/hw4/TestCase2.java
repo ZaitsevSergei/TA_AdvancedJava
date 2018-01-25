@@ -2,8 +2,7 @@ package hw4;
 
 import base.BaseSelenide;
 import enums.datesEnums.SlidersPosition;
-import enums.elements.LoginEnum;
-import enums.elements.UserName;
+import enums.elements.UserEnum;
 import org.testng.annotations.Test;
 import pageObjects.DatesPage;
 import pageObjects.IndexPageOnSelenide;
@@ -19,10 +18,10 @@ public class TestCase2 extends BaseSelenide {
         IndexPageOnSelenide page = open("https://jdi-framework.github.io/tests", IndexPageOnSelenide.class);
 
         // 3. Perform login
-        page.login(LoginEnum.EPAM);
+        page.login(UserEnum.PITER_CHAILOVSKII);
 
         // 4. Assert User name in the left-top side of screen that user is loggined
-        page.checkUserName(UserName.PITER_CHAILOVSKII);
+        page.checkUserName(UserEnum.PITER_CHAILOVSKII);
 
         // 5. Open Service -> Dates
         DatesPage datesPage = page.navigateToDatesPage();

@@ -2,6 +2,7 @@ package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
 import enums.datesEnums.SlidersPosition;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Selenide.actions;
@@ -20,8 +21,10 @@ public class DatesPage {
     @FindBy(css = ".ui-slider-range")
     private SelenideElement sliderRange;
 
+
     /**
-     * Set sliders position*/
+     * Set sliders position
+     */
     public void setSlidersPosition(SlidersPosition slidersPosition) {
         // set left and right sliders position
         setSliderPosition(leftSlider, slidersPosition.getLeftSlider());
@@ -31,45 +34,63 @@ public class DatesPage {
     }
 
     // set position of specific slider
-    private void setSliderPosition(SelenideElement slider, int position) {
-        int xOffset = (position - getCurrentPosition(slider)) * getStep();
-        actions().dragAndDropBy(slider, xOffset, 0).perform();
+    private void setSliderPosition(SelenideElement slider, int desiredPosition) {
+        // calculate desired slider position in pixels
+        double desiredPositionPx = getPositionInPx(desiredPosition);
+        // calculate current position in pixels
+        double currentPosition = getCurrentPosition(slider);
+        // calculate offset to move slider to desired position
+        double offset = desiredPositionPx - currentPosition;
+
+        // drag slider to desired position
+        actions().dragAndDropBy(slider, (int) offset, 0).perform();
+
+        // check position
+        int currentPositionPct = Integer.parseInt(slider.getText());
+        if (currentPositionPct > desiredPosition) {
+            moveSlider(slider, Keys.ARROW_LEFT, desiredPosition);
+        } else if (currentPosition < desiredPosition) {
+            moveSlider(slider, Keys.ARROW_RIGHT, desiredPosition);
+        }
+
+
     }
+
+    private void moveSlider(SelenideElement slider, Keys arrow, int desiredPosition) {
+        while (Integer.parseInt(slider.getText()) != desiredPosition)
+        {
+            slider.sendKeys(arrow);
+        }
+    }
+
+    // convert position in percentage to pixels
+    private double getPositionInPx(int positionPct) {
+        return sliderTrack.getSize().width * positionPct / 100;
+    }
+
+    // convert position in pixels to percentage
+    private int getPositionInPct(double positionPx) {
+        return (int) positionPx * 100 / sliderTrack.getSize().width;
+    }
+
 
     // check sliders position and range
     private void checkSlidersPosition(SlidersPosition slidersPosition) {
         // check positions
-        int leftSliderPosition = getSliderPositionInPersentage(leftSlider);
-        int rightSliderPosition = getSliderPositionInPersentage(rightSlider);
-        assertEquals(leftSliderPosition, slidersPosition.getLeftSlider());
-        assertEquals(rightSliderPosition, slidersPosition.getRigthSlider());
+        int leftSliderPosition = slidersPosition.getLeftSlider();
+        int rightSliderPosition = slidersPosition.getRigthSlider();
+        assertEquals(leftSliderPosition, Integer.parseInt(leftSlider.getText()));
+        assertEquals(rightSliderPosition, Integer.parseInt(rightSlider.getText()));
 
         //check range
         assertEquals(rightSliderPosition - leftSliderPosition,
                 slidersPosition.getRigthSlider() - slidersPosition.getLeftSlider());
     }
 
-    /**
-     * Get step value in pixels
-     */
-    private Integer getStep() {
-        return sliderTrack.getSize().width / 100;
-    }
-
-    /**
-     * Get current position of slider
-     */
-    private int getCurrentPosition(SelenideElement slider) {
-
-        int sliderCenterPx = getSliderPositionInPersentage(slider) + slider.getSize().width / 2;
-
-        return sliderCenterPx / getStep() + 1;
-    }
-
-    // get current slider position in persentage
-    private int getSliderPositionInPersentage(SelenideElement slider) {
+    // get current slider position in pixels
+    private double getCurrentPosition(SelenideElement slider) {
         String value = slider.getCssValue("left").replaceAll("px", "");
-        return (int) Double.parseDouble(value);
+        return Double.parseDouble(value);
     }
 
 
