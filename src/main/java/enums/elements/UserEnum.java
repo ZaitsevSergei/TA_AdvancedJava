@@ -1,15 +1,17 @@
 package enums.elements;
 
-public enum LoginEnum {
-    EPAM("epam", "1234");
+public enum UserEnum {
+    PITER_CHAILOVSKII("epam", "1234", "Piter Chailovskii");
 
 
     private final String login;
     private final String password;
+    private final String userName;
 
-    LoginEnum(String login, String password) {
+    UserEnum(String login, String password, String userName) {
         this.login = login;
         this.password = password;
+        this.userName = userName;
     }
 
     public String getLogin() {
@@ -20,4 +22,5 @@ public enum LoginEnum {
         return password;
     }
 
+    public String getUserName() { return userName; }
 }

@@ -1,5 +1,6 @@
 package pageObjects;
 
+import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -47,8 +48,7 @@ public class IndexPage {
         this.driver = driver;
     }
 
-    public void open()
-    {
+    public void open() {
         driver.navigate().to("https://jdi-framework.github.io/tests");
         driver.manage().window().maximize();
     }
@@ -57,41 +57,39 @@ public class IndexPage {
         Assert.assertEquals(expectedTitle, driver.getTitle());
     }
 
-    public void login(String name, String password) {
+    public void login(UserEnum user) {
         loginFormButton.click();
 
-        loginInput.sendKeys(name);
-        passordInput.sendKeys(password);
+        loginInput.sendKeys(user.getLogin());
+        passordInput.sendKeys(user.getPassword());
         submitButton.click();
     }
 
-    public void checkUserName(String expectedUserName) {
+    public void checkUserName(UserEnum user) {
         // Assert User name is visible
         boolean userNameVisibility = driver.findElement(By.cssSelector(".profile-photo span")).isDisplayed();
         assertTrue(userNameVisibility);
         // get User name
         String userName = driver.findElement(By.cssSelector(".profile-photo span")).getAttribute("innerHTML");
-        assertEquals(expectedUserName, userName);
+        assertEquals(userName, user.getUserName());
     }
 
-    public void checkBenefitsIconsCount(int expectedCount)
-    {
+    public void checkBenefitsIconsCount(int expectedCount) {
         assertEquals(expectedCount, benefitsIcons.size());
     }
 
-    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts){
+    public void checkBenefitsTexts() {
+        BenefitsTextsEnum[] values = BenefitsTextsEnum.values();
         for (int i = 0; i < benefitsIcons.size(); i++) {
-            assertEquals(expectedTexts[i].toString(), benefitsTexts.get(i).getText());
+            assertEquals(values[i].toString(), benefitsTexts.get(i).getText());
         }
     }
 
-    public void checkHeader(String expectedHeaderText)
-    {
+    public void checkHeader(String expectedHeaderText) {
         assertEquals(expectedHeaderText, header.getText());
     }
 
-    public void checkMainText(String expectedMainText)
-    {
+    public void checkMainText(String expectedMainText) {
         assertEquals(expectedMainText, mainText.getText());
     }
 }
