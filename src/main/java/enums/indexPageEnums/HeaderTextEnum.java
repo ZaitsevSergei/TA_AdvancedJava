@@ -1,7 +1,7 @@
 package enums.indexPageEnums;
 
 public enum HeaderTextEnum {
-    TEXT1("EPAM FRAMEWORK WISHESâ€¦");
+    TEXT1("EPAM FRAMEWORK WISHES…");
 
     private final String text;
 
