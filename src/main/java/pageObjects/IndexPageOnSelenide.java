@@ -10,6 +10,7 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -80,6 +81,7 @@ public class IndexPageOnSelenide {
     @FindBy(css = ".dropdown-menu a[href='page4.htm']")
     private SelenideElement datesLink;
 
+    @Step
     // perform login action
     public void login(UserEnum login) {
         try {
@@ -100,17 +102,20 @@ public class IndexPageOnSelenide {
     }
 
     // check user name
+    @Step
     public void checkUserName(UserEnum user) {
         // Assert User name is visible
         userName.shouldHave(text(user.getUserName()));
     }
 
     // check benefits icons count
+    @Step
     public void checkBenefitsIconsCount(int expectedCount) {
         assertEquals(benefitsIcons.size(), expectedCount);
     }
 
     // check benefits texts
+    @Step
     public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
             benefitsTexts.get(i).shouldHave(text(expectedTexts[i].toString()));
@@ -118,16 +123,19 @@ public class IndexPageOnSelenide {
     }
 
     // check header text
+    @Step
     public void checkHeader(String expectedHeaderText) {
         header.shouldHave(text(expectedHeaderText));
     }
 
     // check main text
+    @Step
     public void checkMainText(String expectedMainText) {
         mainText.shouldHave(text(expectedMainText));
     }
 
     // check elements in service category in header menu
+    @Step
     public void checkHeaderServiceContent(ServiceContentEnum[] expectedServiceContent) {
         // click on link
         serviceHeaderLink.click();
@@ -139,6 +147,7 @@ public class IndexPageOnSelenide {
     }
 
     // check elements in service category in left-side menu
+    @Step
     public void checkSideMenuServiceContent(ServiceContentEnum[] expectedServiceContent) {
         // click on link
         serviceSideMenuLink.click();
@@ -150,6 +159,7 @@ public class IndexPageOnSelenide {
     }
 
     // navigate to different elements page from header
+    @Step
     public DifferentElementsPage navigateToDifferentElementsPage() {
         // click on menu
         serviceHeaderLink.click();
@@ -160,6 +170,7 @@ public class IndexPageOnSelenide {
     }
 
     // navigate to dates page
+    @Step
     public DatesPage navigateToDatesPage() {
         // click on menu
         serviceHeaderLink.click();

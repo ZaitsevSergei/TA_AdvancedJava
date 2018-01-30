@@ -8,6 +8,7 @@ import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class DifferentElementsPage {
 
     /* Check interface on Service page, it contains all needed elements.
     4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
+    @Step
     public void checkInterface() {
         // check checkboxes
         Assert.assertEquals(checkboxes.size(), 4);
@@ -75,6 +77,7 @@ public class DifferentElementsPage {
     }
 
     // select and assert checkboxes
+    @Step
     public void selectCheckboxes(CheckboxesEnum[] checkboxesToSelect, SelectedEnum condition) {
         for (CheckboxesEnum checkbox : checkboxesToSelect) {
             SelenideElement element = checkboxes.get(checkbox.toInt());
@@ -84,6 +87,7 @@ public class DifferentElementsPage {
     }
 
     // select and assert radio button
+    @Step
     public void selectRadioButtons(RadioButtonsEnum radioButtonToSelect) {
         SelenideElement element = radioButtons.get(radioButtonToSelect.toInt());
         element.click();
@@ -91,12 +95,14 @@ public class DifferentElementsPage {
     }
 
     // select element in dropdown
+    @Step
     public void selectDropdownItem(DropdownEnum item) {
         dropdownElement.selectOption(item.toString());
         assertEquals(dropdownElement.getSelectedText(), item.toString());
     }
 
     // check log for checkbox, radio and dropdown actions
+    @Step
     public void checkLogs(String[] items, SelectedEnum condition) {
 
         // create regex pattern to get item name

@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import enums.datesEnums.SlidersPosition;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.actions;
 import static org.testng.AssertJUnit.assertEquals;
@@ -25,6 +26,7 @@ public class DatesPage {
     /**
      * Set sliders position
      */
+    @Step
     public void setSlidersPosition(SlidersPosition slidersPosition) {
         // set left and right sliders position
         setSliderPosition(leftSlider, slidersPosition.getLeftSlider());

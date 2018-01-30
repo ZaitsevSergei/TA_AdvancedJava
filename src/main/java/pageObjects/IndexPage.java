@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 
@@ -53,10 +54,12 @@ public class IndexPage {
         driver.manage().window().maximize();
     }
 
+    @Step
     public void checkTitle(String expectedTitle) {
         Assert.assertEquals(expectedTitle, driver.getTitle());
     }
 
+    @Step
     public void login(UserEnum user) {
         loginFormButton.click();
 
@@ -65,6 +68,7 @@ public class IndexPage {
         submitButton.click();
     }
 
+    @Step
     public void checkUserName(UserEnum user) {
         // Assert User name is visible
         boolean userNameVisibility = driver.findElement(By.cssSelector(".profile-photo span")).isDisplayed();
@@ -74,10 +78,12 @@ public class IndexPage {
         assertEquals(userName, user.getUserName());
     }
 
+    @Step
     public void checkBenefitsIconsCount(int expectedCount) {
         assertEquals(expectedCount, benefitsIcons.size());
     }
 
+    @Step
     public void checkBenefitsTexts() {
         BenefitsTextsEnum[] values = BenefitsTextsEnum.values();
         for (int i = 0; i < benefitsIcons.size(); i++) {
@@ -85,10 +91,12 @@ public class IndexPage {
         }
     }
 
+    @Step
     public void checkHeader(String expectedHeaderText) {
         assertEquals(expectedHeaderText, header.getText());
     }
 
+    @Step
     public void checkMainText(String expectedMainText) {
         assertEquals(expectedMainText, mainText.getText());
     }
