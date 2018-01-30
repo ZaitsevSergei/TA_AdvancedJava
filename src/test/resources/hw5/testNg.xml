@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="JDIPageTest" verbose="1">
+    <test name="JDIActions">
+        <classes>
+            <class name="hw4.TestCase1"/>
+            <class name="hw4.TestCase2"/>
+        </classes>
+    </test>
+</suite>

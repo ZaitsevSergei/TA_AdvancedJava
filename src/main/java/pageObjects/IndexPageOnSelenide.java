@@ -6,6 +6,8 @@ import com.codeborne.selenide.SelenideElement;
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.ServiceContentEnum;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
@@ -80,13 +82,21 @@ public class IndexPageOnSelenide {
 
     // perform login action
     public void login(UserEnum login) {
-        // open login form
-        loginFormButton.click();
+        try {
+            // open login form
+            loginFormButton.click();
 
-        // fill form and submit data
-        loginInput.sendKeys(login.getLogin());
-        passordInput.sendKeys(login.getPassword());
-        submitButton.click();
+            // fill form and submit data
+            loginInput.sendKeys(login.getLogin());
+            passordInput.sendKeys(login.getPassword());
+            submitButton.click();
+        }
+        catch (ElementNotVisibleException e) {
+            // user already loggined. Check userName
+            System.out.println("blabla");
+            checkUserName(login);
+        }
+
     }
 
     // check user name

@@ -10,13 +10,22 @@ import enums.indexPageEnums.ServiceContentEnum;
 import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.DifferentElementsPage;
 import pageObjects.IndexPageOnSelenide;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class TestCase1 extends BaseSelenide {
+
+    @BeforeMethod
+    public void setUpMethod() {
+        if (getWebDriver() != null) {
+            getWebDriver().close();
+        }
+    }
 
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
