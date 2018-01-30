@@ -3,14 +3,21 @@ package hw4;
 import base.BaseSelenide;
 import enums.datesEnums.SlidersPosition;
 import enums.elements.UserEnum;
+import listeners.AllureAttachmentListener;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DatesPage;
 import pageObjects.IndexPageOnSelenide;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Listeners(AllureAttachmentListener.class)
+@Features({"TestCase2"})
+@Stories({"Dates Page Test"})
 public class TestCase2 extends BaseSelenide {
 
     @BeforeMethod

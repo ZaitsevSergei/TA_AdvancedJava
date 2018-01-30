@@ -10,14 +10,21 @@ import enums.indexPageEnums.ServiceContentEnum;
 import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
+import listeners.AllureAttachmentListener;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DifferentElementsPage;
 import pageObjects.IndexPageOnSelenide;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Listeners(AllureAttachmentListener.class)
+@Features({"TestCase1"})
+@Stories({"Different Elements Page Test"})
 public class TestCase1 extends BaseSelenide {
 
     @BeforeMethod

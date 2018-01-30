@@ -1,7 +1,8 @@
 package enums.elements;
 
 public enum UserEnum {
-    PITER_CHAILOVSKII("epam", "1234", "Piter Chailovskii");
+    PITER_CHAILOVSKII("epam", "1234", "Piter Chailovskii"),
+    PITER("epam", "1234", "Piter");
 
 
     private final String login;
