@@ -1,7 +1,10 @@
 package base;
 
 import com.codeborne.selenide.Configuration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public abstract class BaseSelenide {
 
