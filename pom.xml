@@ -19,19 +19,16 @@
             <artifactId>testng</artifactId>
             <version>6.13.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.8.1</version>
         </dependency>
-
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
             <version>4.10</version>
         </dependency>
-
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
@@ -46,11 +43,6 @@
             <artifactId>allure-maven-plugin</artifactId>
             <groupId>ru.yandex.qatools.allure</groupId>
             <version>2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.13.1</version>
         </dependency>
     </dependencies>
 

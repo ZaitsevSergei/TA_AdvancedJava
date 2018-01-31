@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -45,8 +46,11 @@ public class IndexPage {
     @FindBy(css = ".main-txt")
     private WebElement mainText;
 
+    private String pageTitle = "Index Page";
+
     public IndexPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     public void open() {
@@ -55,8 +59,8 @@ public class IndexPage {
     }
 
     @Step
-    public void checkTitle(String expectedTitle) {
-        Assert.assertEquals(expectedTitle, driver.getTitle());
+    public void checkTitle() {
+        Assert.assertEquals(pageTitle, driver.getTitle());
     }
 
     @Step

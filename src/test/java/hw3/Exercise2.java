@@ -4,22 +4,26 @@ import base.TestBase;
 import enums.elements.UserEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
-import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pageObjects.IndexPage;
 
 public class Exercise2 extends TestBase {
 
+    private IndexPage indexPage;
+
+    @BeforeTest
+    private void setUpTest() {
+        // 2. Open test site by URL
+        indexPage = new IndexPage(driver);
+        indexPage.open();
+    }
+
     @Test
     public void testLoginAction() {
-        // create page instance
-        IndexPage indexPage = PageFactory.initElements(driver, IndexPage.class);
-
-        // navigate to page
-        indexPage.open();
 
         // 3. Assert Browser title
-        indexPage.checkTitle("Index Page");
+        indexPage.checkTitle();
 
         // 4. Perform login
         indexPage.login(UserEnum.PITER_CHAILOVSKII);
@@ -28,7 +32,7 @@ public class Exercise2 extends TestBase {
         indexPage.checkUserName(UserEnum.PITER_CHAILOVSKII);
 
         // 6. Assert Browser title
-        indexPage.checkTitle("Index Page");
+        indexPage.checkTitle();
 
         // 7. Assert that there are 4 images on the Home Page and they are displayed
         indexPage.checkBenefitsIconsCount(4);
