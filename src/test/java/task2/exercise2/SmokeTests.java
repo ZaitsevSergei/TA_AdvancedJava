@@ -1,6 +1,5 @@
 package task2.exercise2;
 
-import framework.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,16 +10,17 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static java.lang.System.setProperty;
-import static org.junit.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
-public class SmokeTests
-{
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
+
+public class SmokeTests {
     private WebDriver driver;
+    String driverPath = "windows-drivers/chromedriver.exe";
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        setProperty("webdriver.chrome.driver", WebDriverTools.driverPath);
+        setProperty("webdriver.chrome.driver", driverPath);
         driver = new ChromeDriver();
     }
 
@@ -34,7 +34,7 @@ public class SmokeTests
         driver.manage().window().maximize();
 
         driver.navigate().to("https://www.epam.com");
-        assertEquals(driver.getTitle() ,"EPAM | Software Product Development Services");
+        assertEquals(driver.getTitle(), "EPAM | Software Product Development Services");
 
         WebElement searchButton = driver.findElement(By.cssSelector(".header-search__button"));
         searchButton.click();
