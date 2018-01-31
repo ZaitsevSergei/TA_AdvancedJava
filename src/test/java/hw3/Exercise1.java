@@ -93,7 +93,7 @@ public class Exercise1 {
                 "To be flexible and\ncustomizable",
                 "To be multiplatform",
                 "Already have good base\n(about 20 internal and\nsome external projects),\n" +
-                        "wish to get moreâ€¦"
+                        "wish to get more…"
         };
         // assert texts
         for (int i = 0; i < assertTexts.length; i++) {
@@ -106,7 +106,7 @@ public class Exercise1 {
     private void checkHeaderAndMainTexts() {
         // get header text
         String headerText = driver.findElement(By.cssSelector(".main-title.text-center")).getText();
-        String assertHeaderText = "EPAM FRAMEWORK WISHESâ€¦";
+        String assertHeaderText = "EPAM FRAMEWORK WISHES…";
         assertEquals(headerText, assertHeaderText);
 
         // get main text

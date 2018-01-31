@@ -53,10 +53,10 @@ public class TestCase1 extends BaseSelenide {
     //  test index page
     private void testIndexPage(IndexPageOnSelenide page) {
         // 3. Perform login
-        page.login(UserEnum.PITER_CHAILOVSKII);
+        page.login(UserEnum.PITER);
 
         // 4. Assert User name in the left-top side of screen that user is loggined
-        page.checkUserName(UserEnum.PITER_CHAILOVSKII);
+        page.checkUserName(UserEnum.PITER);
 
         // 5. Check interface on Home page, it contains all needed elements.
         // check image count
