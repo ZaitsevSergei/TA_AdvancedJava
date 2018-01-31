@@ -41,8 +41,8 @@ public class Exercise2 extends TestBase {
         indexPage.checkBenefitsTexts();
 
         // 9. Assert that there are the main header and the text below it on the Home Page
-        indexPage.checkHeader(HeaderTextEnum.TEXT1.toString());
-        indexPage.checkMainText(MainTextEnum.TEXT1.toString());
+        indexPage.checkHeader(HeaderTextEnum.TEXT1);
+        indexPage.checkMainText(MainTextEnum.TEXT1);
 
     }
 }

@@ -5,6 +5,8 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
+import enums.indexPageEnums.HeaderTextEnum;
+import enums.indexPageEnums.MainTextEnum;
 import enums.indexPageEnums.ServiceContentEnum;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
@@ -124,14 +126,14 @@ public class IndexPageOnSelenide {
 
     // check header text
     @Step
-    public void checkHeader(String expectedHeaderText) {
-        header.shouldHave(text(expectedHeaderText));
+    public void checkHeader(HeaderTextEnum expectedHeaderText) {
+        assertEquals(expectedHeaderText.toString(), header.getText());
     }
 
-    // check main text
+    // check main text content
     @Step
-    public void checkMainText(String expectedMainText) {
-        mainText.shouldHave(text(expectedMainText));
+    public void checkMainText(MainTextEnum expectedMainText) {
+        assertEquals(expectedMainText.toString(), mainText.getText());
     }
 
     // check elements in service category in header menu

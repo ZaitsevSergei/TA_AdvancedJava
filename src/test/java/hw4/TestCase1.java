@@ -64,9 +64,9 @@ public class TestCase1 extends BaseSelenide {
         // check benefits texts
         page.checkBenefitsTexts(BenefitsTextsEnum.values());
         // check header text
-        page.checkHeader(HeaderTextEnum.TEXT1.toString());
+        page.checkHeader(HeaderTextEnum.TEXT1);
         // check main text
-        page.checkMainText(MainTextEnum.TEXT1.toString());
+        page.checkMainText(MainTextEnum.TEXT1);
 
         // 6. Click on "Service" subcategory in the header and check that drop down contains options
         page.checkHeaderServiceContent(ServiceContentEnum.values());

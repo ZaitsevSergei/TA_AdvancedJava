@@ -2,6 +2,8 @@ package pageObjects;
 
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
+import enums.indexPageEnums.HeaderTextEnum;
+import enums.indexPageEnums.MainTextEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -96,12 +98,12 @@ public class IndexPage {
     }
 
     @Step
-    public void checkHeader(String expectedHeaderText) {
-        assertEquals(expectedHeaderText, header.getText());
+    public void checkHeader(HeaderTextEnum expectedHeaderText) {
+        assertEquals(expectedHeaderText.toString(), header.getText());
     }
 
     @Step
-    public void checkMainText(String expectedMainText) {
-        assertEquals(expectedMainText, mainText.getText());
+    public void checkMainText(MainTextEnum expectedMainText) {
+        assertEquals(expectedMainText.toString(), mainText.getText());
     }
 }
