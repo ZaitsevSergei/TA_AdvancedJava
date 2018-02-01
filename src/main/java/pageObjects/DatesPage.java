@@ -6,7 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import static com.codeborne.selenide.Selenide.actions;
+import static com.codeborne.selenide.Selenide.*;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class DatesPage {
@@ -22,6 +22,12 @@ public class DatesPage {
     @FindBy(css = ".ui-slider-range")
     private SelenideElement sliderRange;
 
+    private String url = "https://jdi-framework.github.io/tests/page4.htm";
+
+    public DatesPage() {
+        open(url);
+        page(this);
+    }
 
     /**
      * Set sliders position
@@ -50,17 +56,17 @@ public class DatesPage {
         // check position
         int currentPositionPct = Integer.parseInt(slider.getText());
         if (currentPositionPct > desiredPosition) {
-            moveSlider(slider, Keys.ARROW_LEFT, desiredPosition);
+            moveSliderByArrow(slider, Keys.ARROW_LEFT, desiredPosition);
         } else if (currentPosition < desiredPosition) {
-            moveSlider(slider, Keys.ARROW_RIGHT, desiredPosition);
+            moveSliderByArrow(slider, Keys.ARROW_RIGHT, desiredPosition);
         }
 
 
     }
 
-    private void moveSlider(SelenideElement slider, Keys arrow, int desiredPosition) {
-        while (Integer.parseInt(slider.getText()) != desiredPosition)
-        {
+    // move slider to correct position by arrow
+    private void moveSliderByArrow(SelenideElement slider, Keys arrow, int desiredPosition) {
+        while (Integer.parseInt(slider.getText()) != desiredPosition) {
             slider.sendKeys(arrow);
         }
     }

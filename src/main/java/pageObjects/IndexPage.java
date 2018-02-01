@@ -2,10 +2,13 @@ package pageObjects;
 
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
+import enums.indexPageEnums.HeaderTextEnum;
+import enums.indexPageEnums.MainTextEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -45,8 +48,11 @@ public class IndexPage {
     @FindBy(css = ".main-txt")
     private WebElement mainText;
 
+    private String pageTitle = "Index Page";
+
     public IndexPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     public void open() {
@@ -55,8 +61,8 @@ public class IndexPage {
     }
 
     @Step
-    public void checkTitle(String expectedTitle) {
-        Assert.assertEquals(expectedTitle, driver.getTitle());
+    public void checkTitle() {
+        Assert.assertEquals(pageTitle, driver.getTitle());
     }
 
     @Step
@@ -80,24 +86,30 @@ public class IndexPage {
 
     @Step
     public void checkBenefitsIconsCount(int expectedCount) {
-        assertEquals(expectedCount, benefitsIcons.size());
+        int displayedCount = 0;
+        for (WebElement benefitIcon : benefitsIcons) {
+            if (benefitIcon.isDisplayed()) {
+                displayedCount++;
+            }
+        }
+        assertEquals(expectedCount, displayedCount);
     }
 
     @Step
-    public void checkBenefitsTexts() {
-        BenefitsTextsEnum[] values = BenefitsTextsEnum.values();
+    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
-            assertEquals(values[i].toString(), benefitsTexts.get(i).getText());
+            assertTrue(benefitsTexts.get(i).isDisplayed());
+            assertEquals(expectedTexts[i].toString(), benefitsTexts.get(i).getText());
         }
     }
 
     @Step
-    public void checkHeader(String expectedHeaderText) {
-        assertEquals(expectedHeaderText, header.getText());
+    public void checkHeader(HeaderTextEnum expectedHeaderText) {
+        assertEquals(expectedHeaderText.toString(), header.getText());
     }
 
     @Step
-    public void checkMainText(String expectedMainText) {
-        assertEquals(expectedMainText, mainText.getText());
+    public void checkMainText(MainTextEnum expectedMainText) {
+        assertEquals(expectedMainText.toString(), mainText.getText());
     }
 }
