@@ -27,9 +27,8 @@ public class DifferentElementsPageTest extends BaseSelenide {
     @Test
     public void differentElementsPageActionsTest() {
         // 2. Open test site by URL
-
-//        IndexPageOnSelenide page = open("https://jdi-framework.github.io/tests", IndexPageOnSelenide.class);
         IndexPageOnSelenide indexPage = new IndexPageOnSelenide();
+
         // 3. Perform login
         indexPage.login(UserEnum.PITER_CHAILOVSKII);
 
@@ -77,6 +76,5 @@ public class DifferentElementsPageTest extends BaseSelenide {
         // 15. Check in logs section unselected values and status (true|false)
         dEPage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()},
                 SelectedEnum.UNSELECTED);
-
     }
 }
