@@ -2,11 +2,15 @@ package pageObjects;
 
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
+import enums.indexPageEnums.HeaderTextEnum;
+import enums.indexPageEnums.MainTextEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 
@@ -44,8 +48,11 @@ public class IndexPage {
     @FindBy(css = ".main-txt")
     private WebElement mainText;
 
+    private String pageTitle = "Index Page";
+
     public IndexPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     public void open() {
@@ -53,10 +60,12 @@ public class IndexPage {
         driver.manage().window().maximize();
     }
 
-    public void checkTitle(String expectedTitle) {
-        Assert.assertEquals(expectedTitle, driver.getTitle());
+    @Step
+    public void checkTitle() {
+        Assert.assertEquals(pageTitle, driver.getTitle());
     }
 
+    @Step
     public void login(UserEnum user) {
         loginFormButton.click();
 
@@ -65,6 +74,7 @@ public class IndexPage {
         submitButton.click();
     }
 
+    @Step
     public void checkUserName(UserEnum user) {
         // Assert User name is visible
         boolean userNameVisibility = driver.findElement(By.cssSelector(".profile-photo span")).isDisplayed();
@@ -74,22 +84,32 @@ public class IndexPage {
         assertEquals(userName, user.getUserName());
     }
 
+    @Step
     public void checkBenefitsIconsCount(int expectedCount) {
-        assertEquals(expectedCount, benefitsIcons.size());
+        int displayedCount = 0;
+        for (WebElement benefitIcon : benefitsIcons) {
+            if (benefitIcon.isDisplayed()) {
+                displayedCount++;
+            }
+        }
+        assertEquals(expectedCount, displayedCount);
     }
 
-    public void checkBenefitsTexts() {
-        BenefitsTextsEnum[] values = BenefitsTextsEnum.values();
+    @Step
+    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
-            assertEquals(values[i].toString(), benefitsTexts.get(i).getText());
+            assertTrue(benefitsTexts.get(i).isDisplayed());
+            assertEquals(expectedTexts[i].toString(), benefitsTexts.get(i).getText());
         }
     }
 
-    public void checkHeader(String expectedHeaderText) {
-        assertEquals(expectedHeaderText, header.getText());
+    @Step
+    public void checkHeader(HeaderTextEnum expectedHeaderText) {
+        assertEquals(expectedHeaderText.toString(), header.getText());
     }
 
-    public void checkMainText(String expectedMainText) {
-        assertEquals(expectedMainText, mainText.getText());
+    @Step
+    public void checkMainText(MainTextEnum expectedMainText) {
+        assertEquals(expectedMainText.toString(), mainText.getText());
     }
 }

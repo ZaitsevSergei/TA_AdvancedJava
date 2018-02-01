@@ -1,16 +1,20 @@
 package pageObjects;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
+import enums.indexPageEnums.HeaderTextEnum;
+import enums.indexPageEnums.MainTextEnum;
 import enums.indexPageEnums.ServiceContentEnum;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -78,46 +82,75 @@ public class IndexPageOnSelenide {
     @FindBy(css = ".dropdown-menu a[href='page4.htm']")
     private SelenideElement datesLink;
 
+    private String url = "https://jdi-framework.github.io/tests";
+
+    public IndexPageOnSelenide() {
+        open(url);
+        page(this);
+    }
+
+    @Step
     // perform login action
     public void login(UserEnum login) {
-        // open login form
-        loginFormButton.click();
+        try {
+            // open login form
+            loginFormButton.click();
 
-        // fill form and submit data
-        loginInput.sendKeys(login.getLogin());
-        passordInput.sendKeys(login.getPassword());
-        submitButton.click();
+            // fill form and submit data
+            loginInput.sendKeys(login.getLogin());
+            passordInput.sendKeys(login.getPassword());
+            submitButton.click();
+        } catch (ElementNotVisibleException e) {
+            // user already loggined. Check userName
+            System.out.println("blabla");
+            checkUserName(login);
+        }
     }
 
     // check user name
+    @Step
     public void checkUserName(UserEnum user) {
         // Assert User name is visible
         userName.shouldHave(text(user.getUserName()));
     }
 
     // check benefits icons count
+    @Step
     public void checkBenefitsIconsCount(int expectedCount) {
-        assertEquals(benefitsIcons.size(), expectedCount);
+        int displayedCount = 0;
+        for (SelenideElement benefitIcon : benefitsIcons) {
+            if (benefitIcon.isDisplayed()) {
+                displayedCount++;
+            }
+        }
+
+        assertEquals(displayedCount, expectedCount);
     }
 
     // check benefits texts
+    @Step
     public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
+            benefitsTexts.get(i).shouldBe(visible);
             benefitsTexts.get(i).shouldHave(text(expectedTexts[i].toString()));
         }
     }
 
     // check header text
-    public void checkHeader(String expectedHeaderText) {
-        header.shouldHave(text(expectedHeaderText));
+    @Step
+    public void checkHeader(HeaderTextEnum expectedHeaderText) {
+        assertEquals(expectedHeaderText.toString(), header.getText());
     }
 
-    // check main text
-    public void checkMainText(String expectedMainText) {
-        mainText.shouldHave(text(expectedMainText));
+    // check main text content
+    @Step
+    public void checkMainText(MainTextEnum expectedMainText) {
+
+        assertEquals(expectedMainText.toString(), mainText.getText());
     }
 
     // check elements in service category in header menu
+    @Step
     public void checkHeaderServiceContent(ServiceContentEnum[] expectedServiceContent) {
         // click on link
         serviceHeaderLink.click();
@@ -129,6 +162,7 @@ public class IndexPageOnSelenide {
     }
 
     // check elements in service category in left-side menu
+    @Step
     public void checkSideMenuServiceContent(ServiceContentEnum[] expectedServiceContent) {
         // click on link
         serviceSideMenuLink.click();
@@ -140,22 +174,24 @@ public class IndexPageOnSelenide {
     }
 
     // navigate to different elements page from header
+    @Step
     public DifferentElementsPage navigateToDifferentElementsPage() {
         // click on menu
         serviceHeaderLink.click();
         // navigate to page
         differentElementsLink.click();
         // return page object of page
-        return Selenide.page(DifferentElementsPage.class);
+        return page(DifferentElementsPage.class);
     }
 
     // navigate to dates page
+    @Step
     public DatesPage navigateToDatesPage() {
         // click on menu
         serviceHeaderLink.click();
         // navigate to page
         datesLink.click();
         // return page object of page
-        return Selenide.page(DatesPage.class);
+        return page(DatesPage.class);
     }
 }

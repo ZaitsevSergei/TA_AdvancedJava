@@ -8,15 +8,16 @@ import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import ru.yandex.qatools.allure.annotations.Step;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -46,8 +47,24 @@ public class DifferentElementsPage {
     @FindBy(css = ".panel-body-list.logs")
     private SelenideElement logs;
 
+    // left section
+    @FindBy(css = ".sidebar-menu")
+    private SelenideElement leftSection;
+
+    // right section
+    @FindBy(css = "#mCSB_1_container")
+    private SelenideElement rightSection;
+
+    private String url = "https://jdi-framework.github.io/tests/page8.htm";
+
+    public DifferentElementsPage() {
+        open(url);
+        page(this);
+    }
+
     /* Check interface on Service page, it contains all needed elements.
     4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
+    @Step
     public void checkInterface() {
         // check checkboxes
         Assert.assertEquals(checkboxes.size(), 4);
@@ -59,9 +76,15 @@ public class DifferentElementsPage {
         defaultButton.should(visible);
         // check button
         button.should(visible);
+
+        // check left section
+        leftSection.should(visible);
+        // check right section
+        rightSection.should(visible);
     }
 
     // select and assert checkboxes
+    @Step
     public void selectCheckboxes(CheckboxesEnum[] checkboxesToSelect, SelectedEnum condition) {
         for (CheckboxesEnum checkbox : checkboxesToSelect) {
             SelenideElement element = checkboxes.get(checkbox.toInt());
@@ -71,6 +94,7 @@ public class DifferentElementsPage {
     }
 
     // select and assert radio button
+    @Step
     public void selectRadioButtons(RadioButtonsEnum radioButtonToSelect) {
         SelenideElement element = radioButtons.get(radioButtonToSelect.toInt());
         element.click();
@@ -78,12 +102,14 @@ public class DifferentElementsPage {
     }
 
     // select element in dropdown
+    @Step
     public void selectDropdownItem(DropdownEnum item) {
         dropdownElement.selectOption(item.toString());
         assertEquals(dropdownElement.getSelectedText(), item.toString());
     }
 
     // check log for checkbox, radio and dropdown actions
+    @Step
     public void checkLogs(String[] items, SelectedEnum condition) {
 
         // create regex pattern to get item name
@@ -99,9 +125,7 @@ public class DifferentElementsPage {
             // else all is ok
             try {
                 logRecords.stream().filter(validateLog(condition, itemPattern, conditionPattern, item)).findFirst().get();
-            }
-            catch (NoSuchElementException e)
-            {
+            } catch (NoSuchElementException e) {
                 System.out.println(item);
             }
 

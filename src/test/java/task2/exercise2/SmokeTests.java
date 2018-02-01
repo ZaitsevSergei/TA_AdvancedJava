@@ -10,8 +10,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static java.lang.System.setProperty;
-import static org.junit.Assert.assertEquals;
+
 import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class SmokeTests {
     private WebDriver driver;

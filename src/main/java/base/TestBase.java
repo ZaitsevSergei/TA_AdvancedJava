@@ -10,11 +10,10 @@ import static java.lang.System.setProperty;
 public abstract class TestBase {
 
     public WebDriver driver;
-    public static String driverPath = "windows-drivers/chromedriver.exe";
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() {
-        setProperty("webdriver.chrome.driver", driverPath);
+        setProperty("webdriver.chrome.driver", "windows-drivers/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
