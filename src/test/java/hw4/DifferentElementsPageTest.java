@@ -11,8 +11,8 @@ import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import listeners.AllureAttachmentListener;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DifferentElementsPage;
@@ -20,23 +20,35 @@ import pageObjects.IndexPageOnSelenide;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 
+import static com.codeborne.selenide.Selenide.close;
+import static com.codeborne.selenide.Selenide.page;
+
 @Listeners(AllureAttachmentListener.class)
 @Features({"TestCase1"})
 @Stories({"Different Elements Page Test"})
 public class DifferentElementsPageTest extends BaseSelenide {
 
-    IndexPageOnSelenide indexPage;
+    // Page Objects instances
+    private IndexPageOnSelenide indexPage;
+    private DifferentElementsPage differentElementsPage;
 
-    @BeforeMethod(alwaysRun = true)
-    public void setUpTest(){
-        // 2. Open test site by URL
-        indexPage = new IndexPageOnSelenide();
+    @BeforeClass(alwaysRun = true)
+    public void setUpTest() {
+        // init page objects instances
+        indexPage = page(IndexPageOnSelenide.class);
+        differentElementsPage = page(DifferentElementsPage.class);
     }
 
+    @AfterClass(alwaysRun = true)
+    public void tearDown() {
+        close();
+    }
 
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
     public void differentElementsPageActionsTest() {
+        // 2.Open test site by URL
+        indexPage.open();
 
         // 3. Perform login
         indexPage.login(UserEnum.PITER_CHAILOVSKII);
@@ -61,29 +73,29 @@ public class DifferentElementsPageTest extends BaseSelenide {
         indexPage.checkSideMenuServiceContent(ServiceContentEnum.values());
 
         // 8. Open through the header menu Service -> Different Elements Page
-        DifferentElementsPage dEPage = indexPage.navigateToDifferentElementsPage();
+        indexPage.navigateToDifferentElementsPage();
 
         // 9. Check interface on Service page, it contains all needed elements.
-        dEPage.checkInterface();
+        differentElementsPage.checkInterface();
 
         // 10. Select and assert checkboxes
-        dEPage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.SELECTED);
+        differentElementsPage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.SELECTED);
 
         // 11. Select radio
-        dEPage.selectRadioButtons(RadioButtonsEnum.SELEN);
+        differentElementsPage.selectRadioButtons(RadioButtonsEnum.SELEN);
 
         // 12.Select in dropdown Yellow
-        dEPage.selectDropdownItem(DropdownEnum.YELLOW);
+        differentElementsPage.selectDropdownItem(DropdownEnum.YELLOW);
 
         // 13. Check in logs section selected values and status (true|false)
-        dEPage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString(),
+        differentElementsPage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString(),
                 RadioButtonsEnum.SELEN.toString(), DropdownEnum.YELLOW.toString()}, SelectedEnum.SELECTED);
 
         // 14. Unselect and assert checkboxes
-        dEPage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.UNSELECTED);
+        differentElementsPage.selectCheckboxes(new CheckboxesEnum[]{CheckboxesEnum.WATER, CheckboxesEnum.WIND}, SelectedEnum.UNSELECTED);
 
         // 15. Check in logs section unselected values and status (true|false)
-        dEPage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()},
+        differentElementsPage.checkLogs(new String[]{CheckboxesEnum.WATER.toString(), CheckboxesEnum.WIND.toString()},
                 SelectedEnum.UNSELECTED);
     }
 }

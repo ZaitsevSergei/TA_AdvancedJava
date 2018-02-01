@@ -5,7 +5,7 @@ import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.IndexPage;
 
@@ -13,15 +13,17 @@ public class Exercise2 extends TestBase {
 
     private IndexPage indexPage;
 
-    @BeforeTest
+    @BeforeClass
     private void setUpTest() {
         // 2. Open test site by URL
         indexPage = new IndexPage(driver);
-        indexPage.open();
+
     }
 
     @Test
     public void testLoginAction() {
+        // 2. Open test site by URL
+        indexPage.open();
 
         // 3. Assert Browser title
         indexPage.checkTitle();

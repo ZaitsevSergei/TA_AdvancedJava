@@ -1,5 +1,6 @@
 package pageObjects;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.datesEnums.SlidersPosition;
 import org.openqa.selenium.Keys;
@@ -22,11 +23,9 @@ public class DatesPage {
     @FindBy(css = ".ui-slider-range")
     private SelenideElement sliderRange;
 
-    private String url = "https://jdi-framework.github.io/tests/page4.htm";
-
-    public DatesPage() {
-        open(url);
-        page(this);
+    @Step
+    public void open() {
+        Selenide.open("https://jdi-framework.github.io/tests/page4.htm");
     }
 
     /**
@@ -75,12 +74,6 @@ public class DatesPage {
     private double getPositionInPx(int positionPct) {
         return sliderTrack.getSize().width * positionPct / 100;
     }
-
-    // convert position in pixels to percentage
-    private int getPositionInPct(double positionPx) {
-        return (int) positionPx * 100 / sliderTrack.getSize().width;
-    }
-
 
     // check sliders position and range
     private void checkSlidersPosition(SlidersPosition slidersPosition) {
