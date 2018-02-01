@@ -11,6 +11,8 @@ import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import listeners.AllureAttachmentListener;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DifferentElementsPage;
@@ -23,11 +25,18 @@ import ru.yandex.qatools.allure.annotations.Stories;
 @Stories({"Different Elements Page Test"})
 public class DifferentElementsPageTest extends BaseSelenide {
 
+    IndexPageOnSelenide indexPage;
+
+    @BeforeMethod(alwaysRun = true)
+    public void setUpTest(){
+        // 2. Open test site by URL
+        indexPage = new IndexPageOnSelenide();
+    }
+
+
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
     public void differentElementsPageActionsTest() {
-        // 2. Open test site by URL
-        IndexPageOnSelenide indexPage = new IndexPageOnSelenide();
 
         // 3. Perform login
         indexPage.login(UserEnum.PITER_CHAILOVSKII);

@@ -4,6 +4,8 @@ import base.BaseSelenide;
 import enums.datesEnums.SlidersPosition;
 import enums.elements.UserEnum;
 import listeners.AllureAttachmentListener;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DatesPage;
@@ -16,11 +18,18 @@ import ru.yandex.qatools.allure.annotations.Stories;
 @Stories({"Dates Page Test"})
 public class DatesPageTest extends BaseSelenide {
 
+    IndexPageOnSelenide indexPage;
+
+    @BeforeMethod(alwaysRun = true)
+    public void setUpTest(){
+        // 2. Open test site by URL
+        indexPage = new IndexPageOnSelenide();
+    }
+
+
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
     public void DatesPageSlidersActionTest() {
-        // 2. Open test site by URL
-        IndexPageOnSelenide indexPage = new IndexPageOnSelenide();
 
         // 3. Perform login
         indexPage.login(UserEnum.PITER_CHAILOVSKII);
