@@ -1,6 +1,7 @@
 package pageObjects;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.elements.UserEnum;
 import enums.indexPageEnums.BenefitsTextsEnum;
@@ -13,8 +14,6 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -82,11 +81,9 @@ public class IndexPageOnSelenide {
     @FindBy(css = ".dropdown-menu a[href='page4.htm']")
     private SelenideElement datesLink;
 
-    private String url = "https://jdi-framework.github.io/tests";
-
-    public IndexPageOnSelenide() {
-        open(url);
-        page(this);
+    @Step
+    public void open() {
+        Selenide.open("https://jdi-framework.github.io/tests");
     }
 
     @Step
@@ -175,23 +172,19 @@ public class IndexPageOnSelenide {
 
     // navigate to different elements page from header
     @Step
-    public DifferentElementsPage navigateToDifferentElementsPage() {
+    public void navigateToDifferentElementsPage() {
         // click on menu
         serviceHeaderLink.click();
         // navigate to page
         differentElementsLink.click();
-        // return page object of page
-        return page(DifferentElementsPage.class);
     }
 
     // navigate to dates page
     @Step
-    public DatesPage navigateToDatesPage() {
+    public void navigateToDatesPage() {
         // click on menu
         serviceHeaderLink.click();
         // navigate to page
         datesLink.click();
-        // return page object of page
-        return page(DatesPage.class);
     }
 }

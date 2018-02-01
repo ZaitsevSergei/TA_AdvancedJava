@@ -1,6 +1,7 @@
 package pageObjects;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.elements.SelectedEnum;
 import enums.servicePageEnums.CheckboxesEnum;
@@ -55,12 +56,11 @@ public class DifferentElementsPage {
     @FindBy(css = "#mCSB_1_container")
     private SelenideElement rightSection;
 
-    private String url = "https://jdi-framework.github.io/tests/page8.htm";
-
-    public DifferentElementsPage() {
-        open(url);
-        page(this);
+    @Step
+    public void open() {
+        Selenide.open("https://jdi-framework.github.io/tests/page8.htm");
     }
+
 
     /* Check interface on Service page, it contains all needed elements.
     4 - checkboxes, 4 radios, dropdown, 2 - buttons, left section, right section.*/
