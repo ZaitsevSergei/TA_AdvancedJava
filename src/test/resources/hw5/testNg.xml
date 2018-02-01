@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="JDIPageTest" verbose="1">
-    <test name="JDIActions">
+    <test name="JDIActions" thread-count="2" parallel="classes">
         <classes>
-            <class name="hw4.TestCase1"/>
-            <class name="hw4.TestCase2"/>
+            <class name="hw4.DifferentElementsPageTest"/>
+            <class name="hw4.DatesPageTest"/>
         </classes>
     </test>
 </suite>

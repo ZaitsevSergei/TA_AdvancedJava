@@ -25,7 +25,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 @Listeners(AllureAttachmentListener.class)
 @Features({"TestCase1"})
 @Stories({"Different Elements Page Test"})
-public class TestCase1 extends BaseSelenide {
+public class DifferentElementsPageTest extends BaseSelenide {
 
     @BeforeMethod
     public void setUpMethod() {
