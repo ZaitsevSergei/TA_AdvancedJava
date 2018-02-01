@@ -96,11 +96,10 @@ public class IndexPage {
     }
 
     @Step
-    public void checkBenefitsTexts() {
-        BenefitsTextsEnum[] values = BenefitsTextsEnum.values();
+    public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
             assertTrue(benefitsTexts.get(i).isDisplayed());
-            assertEquals(values[i].toString(), benefitsTexts.get(i).getText());
+            assertEquals(expectedTexts[i].toString(), benefitsTexts.get(i).getText());
         }
     }
 

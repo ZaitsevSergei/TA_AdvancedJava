@@ -2,6 +2,7 @@ package hw3;
 
 import base.TestBase;
 import enums.elements.UserEnum;
+import enums.indexPageEnums.BenefitsTextsEnum;
 import enums.indexPageEnums.HeaderTextEnum;
 import enums.indexPageEnums.MainTextEnum;
 import org.testng.annotations.BeforeTest;
@@ -38,7 +39,7 @@ public class Exercise2 extends TestBase {
         indexPage.checkBenefitsIconsCount(4);
 
         // 8. Assert that there are 4 texts on the Home Page and check them by getting texts
-        indexPage.checkBenefitsTexts();
+        indexPage.checkBenefitsTexts(BenefitsTextsEnum.values());
 
         // 9. Assert that there are the main header and the text below it on the Home Page
         indexPage.checkHeader(HeaderTextEnum.TEXT1);
