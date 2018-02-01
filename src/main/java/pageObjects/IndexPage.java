@@ -86,13 +86,21 @@ public class IndexPage {
 
     @Step
     public void checkBenefitsIconsCount(int expectedCount) {
-        assertEquals(expectedCount, benefitsIcons.size());
+        int displayedCount = 0;
+        for(WebElement benefitIcon : benefitsIcons)
+        {
+            if(benefitIcon.isDisplayed()){
+                displayedCount++;
+            }
+        }
+        assertEquals(expectedCount, displayedCount);
     }
 
     @Step
     public void checkBenefitsTexts() {
         BenefitsTextsEnum[] values = BenefitsTextsEnum.values();
         for (int i = 0; i < benefitsIcons.size(); i++) {
+            assertTrue(benefitsTexts.get(i).isDisplayed());
             assertEquals(values[i].toString(), benefitsTexts.get(i).getText());
         }
     }

@@ -15,6 +15,7 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
@@ -113,13 +114,22 @@ public class IndexPageOnSelenide {
     // check benefits icons count
     @Step
     public void checkBenefitsIconsCount(int expectedCount) {
-        assertEquals(benefitsIcons.size(), expectedCount);
+        int displayedCount = 0;
+        for(SelenideElement benefitIcon : benefitsIcons)
+        {
+            if(benefitIcon.isDisplayed()){
+                displayedCount++;
+            }
+        }
+
+        assertEquals(displayedCount, expectedCount);
     }
 
     // check benefits texts
     @Step
     public void checkBenefitsTexts(BenefitsTextsEnum[] expectedTexts) {
         for (int i = 0; i < benefitsIcons.size(); i++) {
+            benefitsTexts.get(i).shouldBe(visible);
             benefitsTexts.get(i).shouldHave(text(expectedTexts[i].toString()));
         }
     }
@@ -133,6 +143,7 @@ public class IndexPageOnSelenide {
     // check main text content
     @Step
     public void checkMainText(MainTextEnum expectedMainText) {
+
         assertEquals(expectedMainText.toString(), mainText.getText());
     }
 
