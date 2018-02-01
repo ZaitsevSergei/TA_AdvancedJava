@@ -11,16 +11,12 @@ import enums.servicePageEnums.CheckboxesEnum;
 import enums.servicePageEnums.DropdownEnum;
 import enums.servicePageEnums.RadioButtonsEnum;
 import listeners.AllureAttachmentListener;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DifferentElementsPage;
 import pageObjects.IndexPageOnSelenide;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
-
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Listeners(AllureAttachmentListener.class)
 @Features({"TestCase1"})
@@ -31,32 +27,33 @@ public class DifferentElementsPageTest extends BaseSelenide {
     @Test
     public void differentElementsPageActionsTest() {
         // 2. Open test site by URL
-        IndexPageOnSelenide page = open("https://jdi-framework.github.io/tests", IndexPageOnSelenide.class);
 
+//        IndexPageOnSelenide page = open("https://jdi-framework.github.io/tests", IndexPageOnSelenide.class);
+        IndexPageOnSelenide indexPage = new IndexPageOnSelenide();
         // 3. Perform login
-        page.login(UserEnum.PITER_CHAILOVSKII);
+        indexPage.login(UserEnum.PITER_CHAILOVSKII);
 
         // 4. Assert User name in the left-top side of screen that user is loggined
-        page.checkUserName(UserEnum.PITER_CHAILOVSKII);
+        indexPage.checkUserName(UserEnum.PITER_CHAILOVSKII);
 
         // 5. Check interface on Home page, it contains all needed elements.
         // check image count
-        page.checkBenefitsIconsCount(4);
+        indexPage.checkBenefitsIconsCount(4);
         // check benefits texts
-        page.checkBenefitsTexts(BenefitsTextsEnum.values());
+        indexPage.checkBenefitsTexts(BenefitsTextsEnum.values());
         // check header text
-        page.checkHeader(HeaderTextEnum.TEXT1);
+        indexPage.checkHeader(HeaderTextEnum.TEXT1);
         // check main text
-        page.checkMainText(MainTextEnum.TEXT1);
+        indexPage.checkMainText(MainTextEnum.TEXT1);
 
         // 6. Click on "Service" subcategory in the header and check that drop down contains options
-        page.checkHeaderServiceContent(ServiceContentEnum.values());
+        indexPage.checkHeaderServiceContent(ServiceContentEnum.values());
 
         // 7. Click on Service subcategory in the left section and check that drop down contains options
-        page.checkSideMenuServiceContent(ServiceContentEnum.values());
+        indexPage.checkSideMenuServiceContent(ServiceContentEnum.values());
 
         // 8. Open through the header menu Service -> Different Elements Page
-        DifferentElementsPage dEPage = page.navigateToDifferentElementsPage();
+        DifferentElementsPage dEPage = indexPage.navigateToDifferentElementsPage();
 
         // 9. Check interface on Service page, it contains all needed elements.
         dEPage.checkInterface();

@@ -87,9 +87,8 @@ public class IndexPage {
     @Step
     public void checkBenefitsIconsCount(int expectedCount) {
         int displayedCount = 0;
-        for(WebElement benefitIcon : benefitsIcons)
-        {
-            if(benefitIcon.isDisplayed()){
+        for (WebElement benefitIcon : benefitsIcons) {
+            if (benefitIcon.isDisplayed()) {
                 displayedCount++;
             }
         }
