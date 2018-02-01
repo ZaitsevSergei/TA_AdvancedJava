@@ -27,13 +27,6 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 @Stories({"Different Elements Page Test"})
 public class DifferentElementsPageTest extends BaseSelenide {
 
-    @BeforeMethod
-    public void setUpMethod() {
-        if (getWebDriver() != null) {
-            getWebDriver().close();
-        }
-    }
-
     // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
     public void differentElementsPageActionsTest() {

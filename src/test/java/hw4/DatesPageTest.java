@@ -20,14 +20,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 @Stories({"Dates Page Test"})
 public class DatesPageTest extends BaseSelenide {
 
-    @BeforeMethod
-    public void setUpMethod() {
-        if (getWebDriver() != null) {
-            getWebDriver().close();
-        }
-    }
-
-    // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
+   // 1. Create a new test in a new Java class, specify test name accordingly checking functionality
     @Test
     public void DatesPageSlidersActionTest() {
         // 2. Open test site by URL
